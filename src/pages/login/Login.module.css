@@ -1,0 +1,30 @@
+.login-form {
+    max-width: 360px;
+    margin: 60px auto;
+    padding: 20px;
+}
+.login-form label {
+    display: block;
+    margin: 25px 15px 25px 0px;
+}
+.login-form p {
+    display: block;
+    margin: 10px auto;
+}
+.login-form a:visited {
+    color: black;
+}
+.login-form span {
+    display: block;
+    margin-bottom: 6px;
+}
+.login-form input {
+    padding: 8px 6px;
+    font-size: 1em;
+    color: #777;
+    width: 100%;
+}
+.container {
+    display: flex;
+    justify-content: flex-end;
+}
