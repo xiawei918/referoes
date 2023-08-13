@@ -31,6 +31,7 @@ export const useForgotPassword = () => {
     }
 
     useEffect(() => {
+        setIsCancelled(false);
         return () => setIsCancelled(true);
     }, []);
 

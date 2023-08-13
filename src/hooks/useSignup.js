@@ -37,6 +37,7 @@ export const useSignup = () => {
     }
 
     useEffect(() => {
+        setIsCancelled(false);
         return () => setIsCancelled(true);
     }, []);
 

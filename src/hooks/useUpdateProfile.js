@@ -1,22 +1,23 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { auth } from "../firebase/config";
+import { updateProfile, updateEmail } from "firebase/auth";
 import { useAuthContext } from "./useAuthContext";
-import { signOut } from "firebase/auth";
 
-export const useLogout = () => {
+export const useUpdateProfile = () => {
     const [isCancelled, setIsCancelled] = useState(false);
     const [error, setError] = useState(null);
     const [isPending, setisPending] = useState(null);
     const { dispatch } = useAuthContext();
 
-    const logout = async () => {
+    const updateUserProfile = async (updatedProfile) => {
         setError(null);
         setisPending(true);
 
-        // sign the user out
         try {
-            await signOut(auth);
-            dispatch({ type: 'LOGOUT' });
+            await updateProfile(auth.currentUser, updatedProfile);
+            await updateEmail(auth.currentUser, updatedProfile.email);
+            dispatch({ type: 'UPDATE_PROFILE', payload: auth.currentUser });
+            console.log('cancelled?', isCancelled)
             if (!isCancelled) {
                 setisPending(false);
                 setError(null);
@@ -36,5 +37,5 @@ export const useLogout = () => {
         return () => setIsCancelled(true);
     }, []);
 
-    return { logout, error, isPending };
+    return { error, isPending, updateUserProfile };
 }

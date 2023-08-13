@@ -6,7 +6,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 export const useLogin = () => {
     const [isCancelled, setIsCancelled] = useState(false);
     const [error, setError] = useState(null);
-    const [isPending, setisPending] = useState(null);
+    const [isPending, setisPending] = useState(false);
     const { dispatch } = useAuthContext();
 
     const login = async (email, password) => {
@@ -15,8 +15,9 @@ export const useLogin = () => {
 
         // sign the user out
         try {
-            await signInWithEmailAndPassword(auth, email, password);
-            dispatch({ type: 'LOGIN', payload: auth.currentUser });
+            const response = await signInWithEmailAndPassword(auth, email, password);
+            dispatch({ type: 'LOGIN', payload: response.user });
+            console.log('cancelled?', isCancelled)
             if (!isCancelled) {
                 setisPending(false);
                 setError(null);
@@ -32,6 +33,7 @@ export const useLogin = () => {
     }
 
     useEffect(() => {
+        setIsCancelled(false);
         return () => setIsCancelled(true);
     }, []);
 
