@@ -1,6 +1,7 @@
 import { useState } from 'react';
 // import { useLogin } from '../../hooks/useLogin';
 import { Link } from 'react-router-dom';
+import { useLogin } from '../../hooks/useLogin';
 
 // styles
 import styles from './Login.module.css';
@@ -8,10 +9,11 @@ import styles from './Login.module.css';
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const { login, error, isPending } = useLogin();
 
     const handleLoginSubmit = (e) => {
         e.preventDefault();
-        console.log(email, password);
+        login(email, password);
     }
 
     return (
@@ -33,13 +35,12 @@ export default function Login() {
                     value={password}
                 />
             </label>
-            <p><Link to="/resetpasswordviaemail">Forgot Password</Link></p>
+            <p><Link to="/forgotpassword">Forgot Password</Link></p>
             <div className={styles['container']}>
-            <button className='btn'>Login</button>
+                { !isPending && <button className='btn'>Login</button>} 
+                { isPending && <button className='btn' disabled>loading</button>}
             </div>
-            {/* { !isPending && <button className='btn'>Login</button>} */}
-            {/* { isPending && <button className='btn' disabled>loading</button>}
-            { error && <p>{error}</p>} */}
+            { error && <p>{error}</p>}
         </form>
     )
 }

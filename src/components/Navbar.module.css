@@ -1,26 +1,31 @@
 /* navbar styles */
 .navbar {
     width: 100%;
-    background: #79f6f0;
+    background: none;
     padding: 20px 10px;
     box-sizing: border-box;
-  }
-  .navbar ul {
+}
+.navbar ul {
     display: flex;
     margin: 0 auto;
     max-width: 960px;
     align-items: center;
-  }
-  .title {
+}
+.title {
     margin-right: auto;
     font-weight: 800;
     letter-spacing: 1px;
     font-size: 1.4em;
-  }
-  .navbar button, .navbar a {
-    margin-left: 16px;
-  }
-  .navbar a {
+}
+.navbar button {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.navbar a {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+.navbar a {
     color: #333;
     text-decoration: none;
-  }
+}
