@@ -4,6 +4,7 @@ import { auth } from '../../firebase/config';
 import { useEffect, useState } from 'react';
 import { useFirestore } from '../../hooks/useFirestore';
 import { useUpdateProfile } from '../../hooks/useUpdateProfile';
+import default_avatar from '../../assets/anonymous.png';
 
 
 export default function Profile() {
@@ -39,14 +40,17 @@ export default function Profile() {
         <div className={styles.profile}>
             <h2>Your Profile</h2>
             {!isEditingProfile &&
-                <div className={styles['profile-section']}>
+                <div className={styles['profile-content']}>
                     {auth.currentUser.uid === uid && 
+                        <>
+                        <img src={default_avatar} style={{width: '100px', height: '100px'}} alt='default avatar'/>
                         <ul>
                             <li>name: {displayName}</li>
                             <li>email: {email}</li>
                         </ul>
+                        <button className='btn' onClick={handleProfileEdit}>Edit Profile</button>
+                        </>
                     }
-                    <button className='btn' onClick={handleProfileEdit}>Edit Profile</button>
                 </div>
             }
             {auth.currentUser.uid === uid && isEditingProfile &&

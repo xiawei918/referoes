@@ -25,13 +25,25 @@
     max-width: 720px;
     margin: 60px auto;
     padding: 20px;
+    /* border-style: solid; */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    text-align: center;
 }
-.profile-section {
-    max-width: 480px;
-    margin: 60px auto;
-    padding: 20px;
+.profile-content {
+    display: block;
+    margin: 0px auto;
+    width: 60%;
+    /* border-style: solid; */
+    text-align: center;
 }
-.profile-section ul{
+.profile h2 {
+    margin-bottom: 60px;
+}
+.profile img {
+    margin-bottom: 12px;
+}
+.profile ul{
     margin-bottom: 10px;
 }
 .container {
