@@ -11,10 +11,34 @@ export default function Profile() {
     const { uid } = useParams();
     const [email, setEmail] = useState('');
     const [displayName, setdisplayName] = useState('');
+    const [thumbnail, setThumbnail] = useState(null);
+    const [thumbnailError, setThumbnailError] = useState(null)
     const { updateDocument } = useFirestore('user');
     const [isEditingProfile, setIsEditingProfile] = useState(false);
     const { updateUserProfile, isPending, error } = useUpdateProfile();
 
+    const handleThumbnailChange = (e) => {
+        setThumbnail(null)
+        let selected = e.target.files[0]
+    
+        if (!selected) {
+          setThumbnailError('Please select a file')
+          return
+        }
+        if (!selected.type.includes('image')) {
+          setThumbnailError('Selected file must be an image')
+          return
+        }
+        if (selected.size > 100000) {
+          setThumbnailError('Image file size must be less than 100kb')
+          return
+        }
+        
+        setThumbnailError(null)
+        setThumbnail(selected)
+        console.log('thumbnail updated')
+      }
+    
     const handleProfileEdit = (e) => {
         e.preventDefault();
         setIsEditingProfile(true);
@@ -22,7 +46,7 @@ export default function Profile() {
 
     const handleProfileSubmit = (e) => {
         e.preventDefault();
-        updateUserProfile({ displayName: displayName, email: email });
+        updateUserProfile({ displayName, email, thumbnail });
         setIsEditingProfile(false);
         // window.location.reload();
         // updateDocument(uid, 
@@ -43,7 +67,8 @@ export default function Profile() {
                 <div className={styles['profile-content']}>
                     {auth.currentUser.uid === uid && 
                         <>
-                        <img src={default_avatar} style={{width: '100px', height: '100px'}} alt='default avatar'/>
+                        {auth.currentUser.photoURL && <img src={auth.currentUser.photoURL} style={{width: '100px', height: '100px'}} alt='custom avatar'/>}
+                        {!auth.currentUser.photoURL && <img src={default_avatar} style={{width: '100px', height: '100px'}} alt='default avatar'/>}
                         <ul>
                             <li>name: {displayName}</li>
                             <li>email: {email}</li>
@@ -56,17 +81,26 @@ export default function Profile() {
             {auth.currentUser.uid === uid && isEditingProfile &&
                 <form className={styles['profile-form']} onSubmit={handleProfileSubmit}>
                 <label>
+                    <span>profile thumbnail:</span>
+                    <input 
+                        type="file"
+                        onChange={handleThumbnailChange}
+                    />
+                    {thumbnailError && <div className="error">{thumbnailError}</div>}
+                </label>
+                <label>
                     <span>name:</span>
                     <input 
+                        required
                         type="text"
                         onChange={(e) => setdisplayName(e.target.value)}
                         value={displayName}
                     />
-                    
                 </label>
                 <label>
                     <span>email:</span>
                     <input 
+                        required
                         type="email"
                         onChange={(e) => setEmail(e.target.value)}
                         value={email}
