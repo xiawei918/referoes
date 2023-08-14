@@ -13,9 +13,18 @@
 }
 .intro h2 {
     font-weight: 750;
-    font-size: 3.25rem;  
+    font-size: 3.5rem;  
 }
 .intro p {
     font-size: large;
     margin-bottom: 25px;
+}
+.intro img {
+    margin-right: 15px;
+    margin-bottom: 10px;
+}
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
 }

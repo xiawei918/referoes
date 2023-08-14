@@ -5,13 +5,14 @@ import { useAuthContext } from "./useAuthContext";
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { updateDoc, doc } from "firebase/firestore"
 
+
 export const useUpdateProfile = () => {
     const [isCancelled, setIsCancelled] = useState(false);
     const [error, setError] = useState(null);
     const [isPending, setisPending] = useState(null);
     const { dispatch } = useAuthContext();
 
-    const updateUserProfile = async ({displayName, email, thumbnail}) => {
+    const updateUserProfile = async ({displayName, email, thumbnail, bio, company}) => {
         setError(null);
         setisPending(true);
         let newProfile = {};
@@ -29,7 +30,10 @@ export const useUpdateProfile = () => {
         try {
             if (Object.keys(newProfile).length > 0) {
                 await updateProfile(auth.currentUser, newProfile);
-                await updateDoc(doc(projectFirestore, 'users', auth.currentUser.uid), newProfile);
+            }
+            if (bio || company) {
+                const userDoc = { ...newProfile, bio, company};
+                await updateDoc(doc(projectFirestore, 'users', auth.currentUser.uid), userDoc);
             }
             if (email !== auth.currentUser.email) {
                 await updateEmail(auth.currentUser, email);

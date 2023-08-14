@@ -46,6 +46,10 @@
 .profile ul{
     margin-bottom: 10px;
 }
+.profile textarea {
+    width: 290px;
+    height: 100px;
+}
 .container {
     display: flex;
     justify-content: flex-end;

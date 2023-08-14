@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { auth, projectFirestore } from "../firebase/config";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from "firebase/auth";
 import { useAuthContext } from "./useAuthContext";
 import { setDoc, doc } from "firebase/firestore"
 
@@ -22,12 +22,12 @@ export const useSignup = () => {
             }
 
             await updateProfile(auth.currentUser, { displayName });
-            await auth.currentUser.sendEmailVerification();
+            await sendEmailVerification(auth.currentUser);
 
             // create a user document
             await setDoc(doc(projectFirestore, 'users', auth.currentUser.uid), { 
-                displayName
-              })
+                displayName, email
+              });
 
             dispatch({ type: 'LOGIN', payload: auth.currentUser })
             if (!isCancelled) {

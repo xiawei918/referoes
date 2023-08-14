@@ -2,8 +2,8 @@ import styles from './Profile.module.css';
 import { useParams } from 'react-router-dom';
 import { auth } from '../../firebase/config';
 import { useEffect, useState } from 'react';
-import { useFirestore } from '../../hooks/useFirestore';
 import { useUpdateProfile } from '../../hooks/useUpdateProfile';
+import { useDocument } from '../../hooks/useDocument';
 import default_avatar from '../../assets/anonymous.png';
 
 
@@ -12,10 +12,14 @@ export default function Profile() {
     const [email, setEmail] = useState('');
     const [displayName, setdisplayName] = useState('');
     const [thumbnail, setThumbnail] = useState(null);
-    const [thumbnailError, setThumbnailError] = useState(null)
-    const { updateDocument } = useFirestore('user');
+    const [thumbnailError, setThumbnailError] = useState(null);
+    const [bio, setBio] = useState('');
+    const [company, setCompany] = useState('');
     const [isEditingProfile, setIsEditingProfile] = useState(false);
-    const { updateUserProfile, isPending, error } = useUpdateProfile();
+    const { updateUserProfile, isPending, error: updateProfileError } = useUpdateProfile();
+    const { document: profileUser, error } = useDocument('users', uid);
+
+    // console.log(profileUser);
 
     const handleThumbnailChange = (e) => {
         setThumbnail(null)
@@ -46,13 +50,8 @@ export default function Profile() {
 
     const handleProfileSubmit = (e) => {
         e.preventDefault();
-        updateUserProfile({ displayName, email, thumbnail });
+        updateUserProfile({ displayName, email, thumbnail, bio, company });
         setIsEditingProfile(false);
-        // window.location.reload();
-        // updateDocument(uid, 
-        //     {email: email, 
-        //      displayName: displayName}
-        //     );
     }
 
     useEffect(() => {
@@ -63,6 +62,7 @@ export default function Profile() {
     return (
         <div className={styles.profile}>
             <h2>Your Profile</h2>
+            { error && <p className={styles.error}>{error}</p>}
             {!isEditingProfile &&
                 <div className={styles['profile-content']}>
                     {auth.currentUser.uid === uid && 
@@ -70,12 +70,26 @@ export default function Profile() {
                         {auth.currentUser.photoURL && <img src={auth.currentUser.photoURL} style={{width: '100px', height: '100px'}} alt='custom avatar'/>}
                         {!auth.currentUser.photoURL && <img src={default_avatar} style={{width: '100px', height: '100px'}} alt='default avatar'/>}
                         <ul>
-                            <li>name: {displayName}</li>
-                            <li>email: {email}</li>
+                            <li>name: {profileUser?.displayName}</li>
+                            <li>email: {profileUser?.email}</li>
+                            <li>company: {profileUser?.company}</li>
+                            <li>bio: {profileUser?.bio}</li>
                         </ul>
                         <button className='btn' onClick={handleProfileEdit}>Edit Profile</button>
                         </>
                     }
+                    {auth.currentUser.uid !== uid && 
+                        <>
+                        {profileUser?.photoURL && <img src={profileUser?.photoURL} style={{width: '100px', height: '100px'}} alt='custom avatar'/>}
+                        {!profileUser?.photoURL && <img src={default_avatar} style={{width: '100px', height: '100px'}} alt='default avatar'/>}
+                        <ul>
+                            <li>name: {profileUser?.displayName}</li>
+                            <li>company: {profileUser?.company}</li>
+                            <li>bio: {profileUser?.bio}</li>
+                        </ul>
+                        </>
+                    }
+
                 </div>
             }
             {auth.currentUser.uid === uid && isEditingProfile &&
@@ -106,11 +120,26 @@ export default function Profile() {
                         value={email}
                     />
                 </label>
+                <label>
+                    <span>company:</span>
+                    <input 
+                        type="text"
+                        onChange={(e) => setCompany(e.target.value)}
+                        value={company}
+                    />
+                </label>
+                <label>
+                    <span>personal bio:</span>
+                    <textarea 
+                        onChange={(e) => setBio(e.target.value)}
+                        value={bio}
+                    ></textarea>
+                </label>
                 <div className={styles['container']}>
                 { !isPending && <button className='btn'>Save</button>} 
                 { isPending && <button className='btn' disabled>loading</button>}
             </div>
-                { error && <p className={styles.error}>{error}</p>}
+                { updateProfileError && <p className={styles.error}>{updateProfileError}</p>}
                 </form>
             }
         </div>
