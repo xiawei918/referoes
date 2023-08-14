@@ -1,0 +1,19 @@
+.home-layout-section {
+    padding-bottom: 200px;
+    scroll-margin-top: 20px;
+    background-color: #a4def7;
+    width: 100%;
+}
+.intro {
+    padding-top: 10%;
+    max-width: 90%;
+    margin: 0 auto;
+}
+.intro h2 {
+    font-weight: 700;
+    font-size: 3rem;  
+}
+.intro p {
+    font-size: large;
+    margin-bottom: 10px;
+}

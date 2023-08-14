@@ -20,7 +20,7 @@ export default function Navbar() {
                 </li>
                 <li className={styles.navlink}>
                     <Link to="/getreferral">
-                        Get Referral
+                        Get a Referral
                     </Link>
                 </li>
                 {!user && (

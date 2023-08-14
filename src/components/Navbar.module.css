@@ -8,7 +8,7 @@
 .navbar ul {
     display: flex;
     margin: 0 auto;
-    max-width: 960px;
+    max-width: 90%;
     align-items: center;
 }
 .title {
