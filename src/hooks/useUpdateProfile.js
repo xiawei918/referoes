@@ -12,7 +12,7 @@ export const useUpdateProfile = () => {
     const [isPending, setisPending] = useState(null);
     const { dispatch } = useAuthContext();
 
-    const updateUserProfile = async ({displayName, email, thumbnail, bio, company}) => {
+    const updateUserProfile = async ({displayName, email, thumbnail, bio, company, resume}) => {
         setError(null);
         setisPending(true);
         let newProfile = {};
@@ -21,20 +21,30 @@ export const useUpdateProfile = () => {
         }
         // upload user thumbnail
         if (thumbnail) {
-            const uploadPath = `thumbnails/${auth.currentUser.uid}/${thumbnail.name}`
-            const img = await uploadBytesResumable(ref(storage, uploadPath), thumbnail);
+            const thumbnailUploadPath = `thumbnails/${auth.currentUser.uid}/${thumbnail.name}`
+            const img = await uploadBytesResumable(ref(storage, thumbnailUploadPath), thumbnail);
             const imgUrl = await getDownloadURL(img.ref);
             newProfile = { ...newProfile, photoURL: imgUrl };
+        }
+        let userDoc = { ...newProfile };
+        if (resume) {
+            const resumeUploadPath = `resumes/${auth.currentUser.uid}/${resume.name}`
+            const pdf = await uploadBytesResumable(ref(storage, resumeUploadPath), resume);
+            const pdfUrl = await getDownloadURL(pdf.ref);
+            userDoc = { ...userDoc, pdfUrl };
         }
 
         try {
             if (Object.keys(newProfile).length > 0) {
                 await updateProfile(auth.currentUser, newProfile);
             }
-            if (bio || company) {
-                const userDoc = { ...newProfile, bio, company};
-                await updateDoc(doc(projectFirestore, 'users', auth.currentUser.uid), userDoc);
+            if (bio) {
+                userDoc = { ...userDoc, bio};
             }
+            if (company) {
+                userDoc = { ...userDoc, company};
+            }
+            await updateDoc(doc(projectFirestore, 'users', auth.currentUser.uid), userDoc);
             if (email !== auth.currentUser.email) {
                 await updateEmail(auth.currentUser, email);
             }

@@ -1,0 +1,27 @@
+.profile-form {
+    max-width: 480px;
+    margin: 60px auto;
+    padding: 20px;
+}
+.profile-form label {
+    display: flex;
+    margin: 25px 15px 25px 0px;
+    justify-content: space-between;
+}
+.profile-form span {
+    display: block;
+    margin-bottom: 6px;
+}
+.profile-form input {
+    padding: 6px 6px;
+    font-size: 1em;
+    color: #777;
+    width: 60%;
+}
+.error {
+    color: red;
+}
+.container {
+    display: flex;
+    justify-content: flex-end;
+}

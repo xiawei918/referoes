@@ -5,6 +5,9 @@ import { useEffect, useState } from 'react';
 import { useUpdateProfile } from '../../hooks/useUpdateProfile';
 import { useDocument } from '../../hooks/useDocument';
 import default_avatar from '../../assets/anonymous.png';
+import CurrentUserProfileContent from './CurrentUserProfileContent';
+import OtherUserProfileContent from './OtherUserProfileContent';
+import UpdateProfileForm from './UpdateProfileForm';
 
 
 export default function Profile() {
@@ -13,6 +16,8 @@ export default function Profile() {
     const [displayName, setdisplayName] = useState('');
     const [thumbnail, setThumbnail] = useState(null);
     const [thumbnailError, setThumbnailError] = useState(null);
+    const [resume, setResume] = useState(null);
+    const [resumeError, setResumeError] = useState(null);
     const [bio, setBio] = useState('');
     const [company, setCompany] = useState('');
     const [isEditingProfile, setIsEditingProfile] = useState(false);
@@ -22,8 +27,8 @@ export default function Profile() {
     // console.log(profileUser);
 
     const handleThumbnailChange = (e) => {
-        setThumbnail(null)
-        let selected = e.target.files[0]
+        setThumbnail(null);
+        let selected = e.target.files[0];
     
         if (!selected) {
           setThumbnailError('Please select a file')
@@ -41,7 +46,25 @@ export default function Profile() {
         setThumbnailError(null)
         setThumbnail(selected)
         console.log('thumbnail updated')
-      }
+    }
+
+    const handleResumeChange = (e) => {
+        setResume(null);
+        let selected = e.target.files[0];
+    
+        if (!selected) {
+          setResumeError('Please select a file')
+          return
+        }
+        if (selected.size > 5000000) {
+            setResumeError('Image file size must be less than 5MB')
+          return
+        }
+        
+        setResumeError(null)
+        setResume(selected)
+        console.log('resume updated')
+    }
     
     const handleProfileEdit = (e) => {
         e.preventDefault();
@@ -50,7 +73,7 @@ export default function Profile() {
 
     const handleProfileSubmit = (e) => {
         e.preventDefault();
-        updateUserProfile({ displayName, email, thumbnail, bio, company });
+        updateUserProfile({ displayName, email, thumbnail, bio, company, resume });
         setIsEditingProfile(false);
     }
 
@@ -64,83 +87,31 @@ export default function Profile() {
             <h2>Your Profile</h2>
             { error && <p className={styles.error}>{error}</p>}
             {!isEditingProfile &&
-                <div className={styles['profile-content']}>
+                <div>
                     {auth.currentUser.uid === uid && 
-                        <>
-                        {auth.currentUser.photoURL && <img src={auth.currentUser.photoURL} style={{width: '100px', height: '100px'}} alt='custom avatar'/>}
-                        {!auth.currentUser.photoURL && <img src={default_avatar} style={{width: '100px', height: '100px'}} alt='default avatar'/>}
-                        <ul>
-                            <li>name: {profileUser?.displayName}</li>
-                            <li>email: {profileUser?.email}</li>
-                            <li>company: {profileUser?.company}</li>
-                            <li>bio: {profileUser?.bio}</li>
-                        </ul>
-                        <button className='btn' onClick={handleProfileEdit}>Edit Profile</button>
-                        </>
+                        <CurrentUserProfileContent profileUser={profileUser} handleProfileEdit={handleProfileEdit}/>
                     }
                     {auth.currentUser.uid !== uid && 
-                        <>
-                        {profileUser?.photoURL && <img src={profileUser?.photoURL} style={{width: '100px', height: '100px'}} alt='custom avatar'/>}
-                        {!profileUser?.photoURL && <img src={default_avatar} style={{width: '100px', height: '100px'}} alt='default avatar'/>}
-                        <ul>
-                            <li>name: {profileUser?.displayName}</li>
-                            <li>company: {profileUser?.company}</li>
-                            <li>bio: {profileUser?.bio}</li>
-                        </ul>
-                        </>
+                        <OtherUserProfileContent profileUser={profileUser}/>
                     }
 
                 </div>
             }
             {auth.currentUser.uid === uid && isEditingProfile &&
-                <form className={styles['profile-form']} onSubmit={handleProfileSubmit}>
-                <label>
-                    <span>profile thumbnail:</span>
-                    <input 
-                        type="file"
-                        onChange={handleThumbnailChange}
-                    />
-                    {thumbnailError && <div className="error">{thumbnailError}</div>}
-                </label>
-                <label>
-                    <span>name:</span>
-                    <input 
-                        required
-                        type="text"
-                        onChange={(e) => setdisplayName(e.target.value)}
-                        value={displayName}
-                    />
-                </label>
-                <label>
-                    <span>email:</span>
-                    <input 
-                        required
-                        type="email"
-                        onChange={(e) => setEmail(e.target.value)}
-                        value={email}
-                    />
-                </label>
-                <label>
-                    <span>company:</span>
-                    <input 
-                        type="text"
-                        onChange={(e) => setCompany(e.target.value)}
-                        value={company}
-                    />
-                </label>
-                <label>
-                    <span>personal bio:</span>
-                    <textarea 
-                        onChange={(e) => setBio(e.target.value)}
-                        value={bio}
-                    ></textarea>
-                </label>
-                <div className={styles['container']}>
-                { !isPending && <button className='btn'>Save</button>} 
-                { isPending && <button className='btn' disabled>loading</button>}
-            </div>
-                { updateProfileError && <p className={styles.error}>{updateProfileError}</p>}
-                </form>
+                <UpdateProfileForm 
+                    handleProfileSubmit={handleProfileSubmit}
+                    handleThumbnailChange={handleThumbnailChange}
+                    thumbnailError={thumbnailError}
+                    setdisplayName={setdisplayName}
+                    profileUser={profileUser}
+                    setEmail={setEmail}
+                    setCompany={setCompany}
+                    setBio={setBio}
+                    handleResumeChange={handleResumeChange}
+                    resumeError={resumeError}
+                    isPending={isPending}
+                    updateProfileError={updateProfileError}
+                />
             }
         </div>
     )
