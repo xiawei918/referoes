@@ -6,8 +6,8 @@ import Login from './pages/login/Login';
 import Signup from './pages/signup/Signup';
 import Navbar from './components/Navbar';
 import ForgotPassword from './pages/login/ForgotPassword';
-import GetReferral from './pages/GetReferral/GetReferral';
 import Profile from './pages/profile/Profile';
+import GetReferral from './pages/GetReferral/GetReferral';
 
 function App() {
   const { authIsReady, user } = useAuthContext();

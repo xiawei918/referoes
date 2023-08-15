@@ -1,6 +1,7 @@
 import default_avatar from '../../assets/anonymous.png';
 import styles from './ProfileContent.module.css';
 
+
 export default function OtherUserProfileContent({ profileUser }) {
     return (
         <div className={styles['profile-content']}>

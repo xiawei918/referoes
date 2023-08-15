@@ -4,7 +4,6 @@ import { auth } from '../../firebase/config';
 import { useEffect, useState } from 'react';
 import { useUpdateProfile } from '../../hooks/useUpdateProfile';
 import { useDocument } from '../../hooks/useDocument';
-import default_avatar from '../../assets/anonymous.png';
 import CurrentUserProfileContent from './CurrentUserProfileContent';
 import OtherUserProfileContent from './OtherUserProfileContent';
 import UpdateProfileForm from './UpdateProfileForm';

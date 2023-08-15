@@ -13,19 +13,16 @@
 }
 .title {
     margin-right: auto;
-    font-weight: 800;
-    letter-spacing: 1px;
-    font-size: 1.4em;
 }
 .navbar button {
     margin-left: 5px;
     margin-right: 5px;
 }
 .navbar a {
-  margin-left: 16px;
-  margin-right: 16px;
-}
-.navbar a {
-    color: #333;
-    text-decoration: none;
+  margin-left: 12px;
+  margin-right: 12px;
+  color: #333;
+  text-decoration: none;
+  padding: 2px;
+  box-sizing: border-box;
 }

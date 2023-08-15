@@ -18,19 +18,19 @@ export default function Navbar() {
                         <img src={logo} style={{width: '150px', height: '30px'}} alt='logo' />
                     </Link>
                 </li>
-                <li className={styles.navlink}>
+                <li className={styles.target}>
                     <Link to="/getreferral">
                         Get a Referral
                     </Link>
                 </li>
                 {!user && (
                     <>
-                        <li className={styles.navlink}>
+                        <li>
                             <Link to="/login">
                                 <button className='btn'>Log In</button>
                             </Link>
                         </li>
-                        <li className={styles.navlink}>
+                        <li>
                             <Link to="/signup">
                                 <button className='btn-reverse'>Sign Up</button>
                             </Link>
