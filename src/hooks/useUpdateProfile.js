@@ -21,14 +21,16 @@ export const useUpdateProfile = () => {
         }
         // upload user thumbnail
         if (thumbnail) {
-            const thumbnailUploadPath = `thumbnails/${auth.currentUser.uid}/${thumbnail.name}`
+            const thumbnailFileExt = thumbnail.name.split('.').pop();
+            const thumbnailUploadPath = `thumbnails/${auth.currentUser.uid}/avatar.${thumbnailFileExt}`
             const img = await uploadBytesResumable(ref(storage, thumbnailUploadPath), thumbnail);
             const imgUrl = await getDownloadURL(img.ref);
             newProfile = { ...newProfile, photoURL: imgUrl };
         }
         let userDoc = { ...newProfile };
         if (resume) {
-            const resumeUploadPath = `resumes/${auth.currentUser.uid}/${resume.name}`
+            const resumeFileExt = resume.name.split('.').pop();
+            const resumeUploadPath = `resumes/${auth.currentUser.uid}/resume.${resumeFileExt}`
             const pdf = await uploadBytesResumable(ref(storage, resumeUploadPath), resume);
             const pdfUrl = await getDownloadURL(pdf.ref);
             userDoc = { ...userDoc, pdfUrl };
