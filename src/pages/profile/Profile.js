@@ -93,7 +93,6 @@ export default function Profile() {
                     {auth.currentUser.uid !== uid && 
                         <OtherUserProfileContent profileUser={profileUser}/>
                     }
-
                 </div>
             }
             {auth.currentUser.uid === uid && isEditingProfile &&

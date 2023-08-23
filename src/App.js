@@ -7,7 +7,7 @@ import Signup from './pages/signup/Signup';
 import Navbar from './components/Navbar';
 import ForgotPassword from './pages/login/ForgotPassword';
 import Profile from './pages/profile/Profile';
-import GetReferral from './pages/GetReferral/GetReferral';
+import ApplicationForm from './pages/GetReferral/ApplicationForm';
 
 function App() {
   const { authIsReady, user } = useAuthContext();
@@ -22,7 +22,7 @@ function App() {
               path="/getreferral"
               element={
                 <>
-                  <GetReferral/>
+                  <ApplicationForm/>
                 </>} />
             <Route
               path="/profiles/:uid"

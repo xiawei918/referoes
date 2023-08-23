@@ -1,6 +1,6 @@
 import { useReducer, useEffect, useState } from "react"
 import { projectFirestore, timestamp } from "../firebase/config"
-import { collection, addDoc, doc, updateDoc, deleteDoc } from "firebase/firestore"
+import { collection, addDoc, doc, updateDoc, deleteDoc, serverTimestamp } from "firebase/firestore"
 
 let initialState = {
   document: null,
@@ -45,8 +45,10 @@ export const useFirestore = (collectionName) => {
     dispatch({ type: 'IS_PENDING' })
 
     try {
-      const createdAt = timestamp.fromDate(new Date())
+      const createdAt = serverTimestamp()
+      console.log(createdAt)
       const addedDocument = await addDoc(ref, { ...doc, createdAt })
+      console.log(addedDocument)
       dispatchIfNotCancelled({ type: 'ADDED_DOCUMENT', payload: addedDocument })
     }
     catch (err) {
