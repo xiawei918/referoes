@@ -11,6 +11,7 @@ export default function ApplicationForm({ referrer }) {
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
+    const [company, setCompany] = useState('');
     const [resume, setResume] = useState('');
     const [jobTitle, setJobTitle] = useState('');
     const [jobLink, setJobLink] = useState('');
@@ -34,12 +35,14 @@ export default function ApplicationForm({ referrer }) {
             lastName,
             email,
             phone,
+            company,
             resumeUrl,
             jobTitle,
             jobLink,
             linkedinLink,
             githubLink,
-            personalWebsiteLink
+            personalWebsiteLink,
+            referrer: referrer??null
         };
         if (referrer) {
             application = {...application, referrer};
@@ -120,6 +123,15 @@ export default function ApplicationForm({ referrer }) {
                         required
                         onChange={(e) => setPhone(e.target.value)}
                         value={phone}
+                    />
+                </label>
+                <label>
+                    <span>opening position company:</span>
+                    <input
+                        type="text"
+                        required
+                        onChange={(e) => setCompany(e.target.value)}
+                        value={company}
                     />
                 </label>
                 <label>
