@@ -46,7 +46,8 @@ export default function ApplicationForm({ referrer }) {
             linkedinLink,
             githubLink,
             personalWebsiteLink,
-            referrer: referrer??null,
+            referrerName: referrer?.referrerName??null,
+            referrerID: referrer?.referrerID??null,
             status
         };
         if (referrer) {
