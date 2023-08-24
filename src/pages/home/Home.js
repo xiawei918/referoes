@@ -12,7 +12,7 @@ export default function Home() {
                         <h2><strong>Be A Hero, <br/>Give A Referral.</strong></h2>
                         <p>Help connect candidates to their dream jobs.</p>
                         <div className={styles.buttons}>
-                            <button className='btn-reverse'>Give a Referral</button>
+                            <Link to="/givereferral"><button className='btn-reverse'>Give a Referral</button></Link>
                             <div>or</div>
                             <Link to="/getreferral"><button className='btn-reverse'>Get a Referral</button></Link>
                         </div>

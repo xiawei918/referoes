@@ -29,6 +29,10 @@ export default function ApplicationForm({ referrer }) {
         const resumeUploadPath = `resumes/${auth.currentUser.uid}/resume.${resumeFileExt}`
         const pdf = await uploadBytesResumable(ref(storage, resumeUploadPath), resume);
         const resumeUrl = await getDownloadURL(pdf.ref);
+        let status = 'open';
+        if (referrer) {
+            status = 'assigned';
+        }
         let application = {
             uid: auth.currentUser.uid,
             firstName,
@@ -42,7 +46,8 @@ export default function ApplicationForm({ referrer }) {
             linkedinLink,
             githubLink,
             personalWebsiteLink,
-            referrer: referrer??null
+            referrer: referrer??null,
+            status
         };
         if (referrer) {
             application = {...application, referrer};

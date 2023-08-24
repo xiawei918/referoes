@@ -8,6 +8,8 @@ import Navbar from './components/Navbar';
 import ForgotPassword from './pages/login/ForgotPassword';
 import Profile from './pages/profile/Profile';
 import ApplicationForm from './pages/GetReferral/ApplicationForm';
+import Application from './pages/application/Application';
+import GiveReferral from './pages/giveReferral/GiveReferral';
 
 function App() {
   const { authIsReady, user } = useAuthContext();
@@ -61,6 +63,16 @@ function App() {
                   {!user && <ForgotPassword />}
                 </>
               } />
+              <Route 
+                path="/applications/:id" 
+                element={
+                  <Application/>
+                }/>
+              <Route 
+                path="/givereferral" 
+                element={
+                  <GiveReferral/>
+                }/>
           </Routes>
         </BrowserRouter>
       )}
