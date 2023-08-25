@@ -8,7 +8,7 @@ import { auth, storage } from "../../firebase/config";
 import styles from './ApplicationForm.module.css';
 
 export default function ApplicationForm() {
-    // const { uid } = useParams();
+    let { uid } = useParams();
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -21,8 +21,11 @@ export default function ApplicationForm() {
     const [githubLink, setGithubLink] = useState('');
     const [personalWebsiteLink, setpersonalWebsiteLink] = useState('');
     const { submitApplication, error, isPending, response } = useSubmitApplication();
-    const profileUser = null;
-    // const { document: profileUser, Usererror } = useDocument('users', uid);
+    // if (!uid) {
+    //     uid = ' ';
+    // }
+    const { document: profileUser, Usererror } = useDocument('users', uid);
+    console.log(profileUser)
     const navigate = useNavigate();
 
 

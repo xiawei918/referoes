@@ -21,7 +21,7 @@ function App() {
           <Navbar />
           <Routes>
             <Route
-              path="/getreferral"
+              path="/getreferral/:uid?"
               element={
                 <>
                   <ApplicationForm/>
