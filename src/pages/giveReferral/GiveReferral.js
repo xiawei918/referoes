@@ -1,7 +1,6 @@
 import styles from './GiveReferral.module.css';
 import ApplicationList from '../../components/ApplicationList';
 import { useCollection } from '../../hooks/useCollection';
-import { Link } from 'react-router-dom';
 
 export default function GiveReferral() {
     const { documents: applications, error } = useCollection(

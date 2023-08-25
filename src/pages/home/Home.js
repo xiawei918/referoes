@@ -18,7 +18,7 @@ export default function Home() {
                         </div>
                     </div>
                     <div>
-                        <img src={heroImage} style={{width: '420px', height: '360px'}} alt='hero image'/>
+                        <img src={heroImage} style={{width: '420px', height: '360px'}} alt='digital world'/>
                     </div>
                 </div>
             </section>
@@ -30,7 +30,7 @@ export default function Home() {
                         <p>Get a referral for your dream job.</p>
                     </div>
                     <div>
-                        <img src={formImage} style={{width: '120px', height: '120px'}} alt='form image'/>
+                        <img src={formImage} style={{width: '120px', height: '120px'}} alt='filling in form'/>
                     </div>
                 </div>
             </section>
