@@ -25,7 +25,7 @@ function App() {
               element={
                 <>
                   <ApplicationForm/>
-                </>} />
+                </>}/>
             <Route
               path="/profiles/:uid"
               element={

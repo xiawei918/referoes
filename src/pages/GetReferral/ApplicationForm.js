@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { useSubmitApplication } from "../../hooks/useApplicationSubmit";
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { useNavigate } from 'react-router-dom'
+import { useDocument } from '../../hooks/useDocument';
+import { useParams, useNavigate } from 'react-router-dom'
 import { auth, storage } from "../../firebase/config";
 
 import styles from './ApplicationForm.module.css';
 
-export default function ApplicationForm({ referrer }) {
+export default function ApplicationForm() {
+    // const { uid } = useParams();
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -19,7 +21,10 @@ export default function ApplicationForm({ referrer }) {
     const [githubLink, setGithubLink] = useState('');
     const [personalWebsiteLink, setpersonalWebsiteLink] = useState('');
     const { submitApplication, error, isPending, response } = useSubmitApplication();
+    const profileUser = null;
+    // const { document: profileUser, Usererror } = useDocument('users', uid);
     const navigate = useNavigate();
+
 
     const [resumeError, setResumeError] = useState(null);
 
@@ -30,7 +35,7 @@ export default function ApplicationForm({ referrer }) {
         const pdf = await uploadBytesResumable(ref(storage, resumeUploadPath), resume);
         const resumeUrl = await getDownloadURL(pdf.ref);
         let status = 'open';
-        if (referrer) {
+        if (profileUser) {
             status = 'assigned';
         }
         let application = {
@@ -46,12 +51,12 @@ export default function ApplicationForm({ referrer }) {
             linkedinLink,
             githubLink,
             personalWebsiteLink,
-            referrerName: referrer?.referrerName??null,
-            referrerID: referrer?.referrerID??null,
+            referrerName: profileUser?.displayName??null,
+            referrerID: profileUser?.uid??null,
             status
         };
-        if (referrer) {
-            application = {...application, referrer};
+        if (profileUser) {
+            application = {...application, referrer: profileUser};
         };
         await submitApplication(application);
         console.log(response)

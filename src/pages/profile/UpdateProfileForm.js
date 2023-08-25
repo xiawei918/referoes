@@ -1,6 +1,7 @@
 import styles from './UpdateProfileForm.module.css';
 
 export default function UpdateProfileForm(props) {
+    console.log(props.profileUser)
     return (
         <form className={styles['profile-form']} onSubmit={props.handleProfileSubmit}>
             <label>
@@ -16,8 +17,8 @@ export default function UpdateProfileForm(props) {
                 <input 
                     required
                     type="text"
-                    onChange={(e) => props.setdisplayName(e.target.value)}
-                    value={props.profileUser?.displayName}
+                    onChange={(e) => props.setDisplayName(e.target.value)}
+                    value={props.displayName}
                 />
             </label>
             <label>
@@ -26,7 +27,7 @@ export default function UpdateProfileForm(props) {
                     required
                     type="email"
                     onChange={(e) => props.setEmail(e.target.value)}
-                    value={props.profileUser?.email}
+                    value={props.email}
                 />
             </label>
             <label>
@@ -34,14 +35,14 @@ export default function UpdateProfileForm(props) {
                 <input 
                     type="text"
                     onChange={(e) => props.setCompany(e.target.value)}
-                    value={props.profileUser?.company}
+                    value={props.company}
                 />
             </label>
             <label>
                 <span>personal bio:</span>
                 <textarea 
                     onChange={(e) => props.setBio(e.target.value)}
-                    value={props.profileUser?.bio}
+                    value={props.bio}
                 ></textarea>
             </label>
             <label>

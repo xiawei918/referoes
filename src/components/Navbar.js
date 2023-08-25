@@ -18,11 +18,11 @@ export default function Navbar() {
                         <img src={logo} style={{width: '150px', height: '30px'}} alt='logo' />
                     </Link>
                 </li>
-                <li className={styles.target}>
+                {user && <li className={styles.target}>
                     <Link to="/getreferral">
                         Get a Referral
                     </Link>
-                </li>
+                </li>}
                 {!user && (
                     <>
                         <li>

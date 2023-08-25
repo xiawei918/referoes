@@ -7,12 +7,13 @@ import { useDocument } from '../../hooks/useDocument';
 import CurrentUserProfileContent from './CurrentUserProfileContent';
 import OtherUserProfileContent from './OtherUserProfileContent';
 import UpdateProfileForm from './UpdateProfileForm';
+import { useNavigate } from 'react-router-dom'
 
 
 export default function Profile() {
     const { uid } = useParams();
     const [email, setEmail] = useState('');
-    const [displayName, setdisplayName] = useState('');
+    const [displayName, setDisplayName] = useState('');
     const [thumbnail, setThumbnail] = useState(null);
     const [thumbnailError, setThumbnailError] = useState(null);
     const [resume, setResume] = useState(null);
@@ -22,6 +23,7 @@ export default function Profile() {
     const [isEditingProfile, setIsEditingProfile] = useState(false);
     const { updateUserProfile, isPending, error: updateProfileError } = useUpdateProfile();
     const { document: profileUser, error } = useDocument('users', uid);
+    const navigate = useNavigate();
 
     // console.log(profileUser);
 
@@ -72,18 +74,27 @@ export default function Profile() {
 
     const handleProfileSubmit = (e) => {
         e.preventDefault();
-        updateUserProfile({ displayName, email, thumbnail, bio, company, resume });
+        try {
+            updateUserProfile({ displayName, email, thumbnail, bio, company, resume });
+        }
+        catch (err) {
+            navigate('/login')
+        }
         setIsEditingProfile(false);
     }
 
     useEffect(() => {
-        setdisplayName(auth.currentUser.displayName);
-        setEmail(auth.currentUser.email);
-    }, []);
+        if (isEditingProfile) {
+            setDisplayName(profileUser.displayName);
+            setEmail(profileUser.email);
+            setCompany(profileUser.company);
+            setBio(profileUser.bio);
+        }
+    }, [isEditingProfile]);
 
     return (
         <div className={styles.profile}>
-            <h2>Your Profile</h2>
+            <h2>Profile</h2>
             { error && <p className={styles.error}>{error}</p>}
             {!isEditingProfile &&
                 <div>
@@ -100,11 +111,15 @@ export default function Profile() {
                     handleProfileSubmit={handleProfileSubmit}
                     handleThumbnailChange={handleThumbnailChange}
                     thumbnailError={thumbnailError}
-                    setdisplayName={setdisplayName}
+                    setDisplayName={setDisplayName}
                     profileUser={profileUser}
                     setEmail={setEmail}
                     setCompany={setCompany}
                     setBio={setBio}
+                    email={email}
+                    displayName={displayName}
+                    company={company}
+                    bio={bio}
                     handleResumeChange={handleResumeChange}
                     resumeError={resumeError}
                     isPending={isPending}
