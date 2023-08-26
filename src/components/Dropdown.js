@@ -30,11 +30,11 @@ const DrowdownMenu = () => {
 
   return (
     <div className={styles.dropdown} ref={dropdownRef}>
-      <button onClick={handleDropdownClick} className='btn'>Dropdown</button>
+      <button onClick={handleDropdownClick} className='btn'>Menu</button>
       {isOpen && (
         <div className={styles.menu}>
           <Link to={`/profiles/${user.uid}`}>Profile</Link>
-          <a onClick={logout}>Logout</a>
+          <a href='/' onClick={logout}>Logout</a>
         </div>
       )}
     </div>

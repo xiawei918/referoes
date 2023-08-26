@@ -90,7 +90,7 @@ export default function Profile() {
             setCompany(profileUser.company);
             setBio(profileUser.bio);
         }
-    }, [isEditingProfile]);
+    }, [isEditingProfile, profileUser]);
 
     return (
         <div className={styles.profile}>

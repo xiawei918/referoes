@@ -21,11 +21,8 @@ export default function ApplicationForm() {
     const [githubLink, setGithubLink] = useState('');
     const [personalWebsiteLink, setpersonalWebsiteLink] = useState('');
     const { submitApplication, error, isPending, response } = useSubmitApplication();
-    // if (!uid) {
-    //     uid = ' ';
-    // }
     const { document: profileUser, Usererror } = useDocument('users', uid);
-    console.log(profileUser)
+    console.log(Usererror)
     const navigate = useNavigate();
 
 
@@ -97,7 +94,7 @@ export default function ApplicationForm() {
             setpersonalWebsiteLink('');
             navigate('/')
         }
-    }, [response.success])
+    }, [response.success, navigate])
 
     return (
         <div className={styles['application-form']}>

@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { useLogout } from '../hooks/useLogout';
 import { useAuthContext } from '../hooks/useAuthContext';
 import DropdownMenu from './Dropdown';
 import logo from '../assets/logo.png';
