@@ -1,0 +1,25 @@
+.dropdown {
+    flex-direction: column;
+}
+
+.menu {
+    position: absolute;
+    margin: 0 0;
+    padding: 0;
+    border: 1px solid grey;
+    width: 150px;
+    background-color: white;
+}
+
+.menu a {
+    display: block;
+    border-style: solid;
+    width: 100%;
+    margin-left: 0px;
+    cursor: pointer;
+}
+
+.menu a:hover {
+    display: block;
+    background-color: lightgray;
+}

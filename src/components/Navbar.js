@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import { useLogout } from '../hooks/useLogout';
 import { useAuthContext } from '../hooks/useAuthContext';
+import DropdownMenu from './Dropdown';
 import logo from '../assets/logo.png';
 
 // styles
 import styles from './Navbar.module.css';
 
 export default function Navbar() {
-    const { logout } = useLogout();
     const { user } = useAuthContext();
 
     return (
@@ -37,19 +37,7 @@ export default function Navbar() {
                         </li>
                     </>
                 )}
-
-                {user && (
-                    <>
-                        <li className={styles.navlink}>
-                            <Link to={`/profiles/${user.uid}`}>
-                                Profile
-                            </Link>
-                        </li>
-                        <li>
-                            <button className='btn' onClick={logout}>Logout</button>
-                        </li>
-                    </>
-                )}
+                {user && <li className={styles['dropdown-container']}><DropdownMenu/></li>}
             </ul>
         </nav>
     )

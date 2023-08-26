@@ -4,6 +4,7 @@
     background: none;
     padding: 20px 10px;
     box-sizing: border-box;
+    overflow-y: visible;
 }
 .navbar ul {
     display: flex;
@@ -19,10 +20,12 @@
     margin-right: 3px;
 }
 .navbar a {
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-right: 15px;
   color: #333;
   text-decoration: none;
   padding: 1px;
   box-sizing: border-box;
+}
+.dropdown-container {
+  display: block;
 }
