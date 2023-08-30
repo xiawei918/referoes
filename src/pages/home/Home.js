@@ -18,7 +18,7 @@ export default function Home() {
                                 <Link to="/getreferral"><button className='btn-reverse'>Get a Referral</button></Link>
                             </div>
                         </div>
-                        <img src={heroImage} style={{width: '600px', height: '450px'}} alt='digital world'/>
+                        <img src={heroImage} className={styles['hero-image']} alt='digital world'/>
                     </div>
                 </section>
             </div>

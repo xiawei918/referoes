@@ -11,6 +11,7 @@
 }
 .home-intro-section {
     max-width: 1200px;
+    max-height: 600px;
     padding-bottom: 75px;
     scroll-margin-top: 10px;
     /* background-color: #a4def7; */
@@ -44,7 +45,7 @@
     margin-left: 10px;
     width: 50%;
     vertical-align: middle;
-    display: inline-block;
+    /* display: inline-block; */
 }
 .buttons {
     display: flex;
@@ -76,4 +77,13 @@
     margin-left: 10px;
     padding: 0 20px;
     /* border-style: solid; */
+}
+.hero-image {
+    display: block;
+    object-fit: contain;
+    max-height: 450px;
+    max-width: 600px;
+    aspect-ratio: 16/9;
+    width: 600px;
+    height: 450px;
 }
