@@ -10,34 +10,34 @@ export default function Navbar() {
     const { user } = useAuthContext();
 
     return (
-        <nav className={styles.navbar}>
-            <ul>
-                <li className={styles.title}>
-                    <Link to="/">
-                        <img src={logo} style={{width: '150px', height: '30px'}} alt='logo' />
+        <div className={styles.header}>
+            <div className={styles.container}>
+                <div className={styles['header-inner']}>
+                    <Link to="/" className={styles.logo}>
+                        <img src={logo} style={{width: '250px', height: '50px'}} alt='logo' />
                     </Link>
-                </li>
-                {user && <li className={styles.target}>
-                    <Link to="/getreferral">
-                        Get a Referral
-                    </Link>
-                </li>}
-                {!user && (
-                    <>
-                        <li>
-                            <Link to="/login">
-                                <button className='btn'>Log In</button>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="/signup">
-                                <button className='btn-reverse'>Sign Up</button>
-                            </Link>
-                        </li>
-                    </>
-                )}
-                {user && <li className={styles['dropdown-container']}><DropdownMenu/></li>}
-            </ul>
-        </nav>
+                    <nav className={styles.navbar}>
+                            {user && 
+                                <Link to="/getreferral" className={styles['nav-link']}>
+                                    Get a Referral
+                                </Link>
+                            }
+                            {user && 
+                                <Link to="/givereferral" className={styles['nav-link']}>
+                                    Give a Referral
+                                </Link>
+                            }
+                            {!user && <Link to="/login" className={styles['nav-link']}>
+                                            <button className='btn'>Log In</button>
+                                        </Link>}
+                            {!user && 
+                                        <Link to="/signup" className={styles['nav-link']}>
+                                            <button className='btn-reverse'>Sign Up</button>
+                                        </Link>}
+                            {user && <DropdownMenu/>}
+                    </nav>
+                </div>
+            </div>
+        </div>
     )
 }

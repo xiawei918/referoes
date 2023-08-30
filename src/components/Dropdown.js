@@ -30,7 +30,7 @@ const DrowdownMenu = () => {
 
   return (
     <div className={styles.dropdown} ref={dropdownRef}>
-      <button onClick={handleDropdownClick} className='btn'>Menu</button>
+      <button onClick={handleDropdownClick} className='btn-reverse'>Menu</button>
       {isOpen && (
         <div className={styles.menu}>
           <Link to={`/profiles/${user.uid}`}>Profile</Link>
