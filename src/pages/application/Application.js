@@ -34,10 +34,10 @@ export default function Application() {
                 <li>Email: {application.email}</li>
                 <li>Phone: {application.phone}</li>
                 <li>Resume: <a href={application.resumeUrl}>FILE LINK</a></li>
-                <li>Job Link: {application.jobLink}</li>
-                {application.linkedinLink && <li>Linkedin: {application.linkedinLink}</li>}
-                {application.githubLink && <li>Github: {application.githubLink}</li>}
-                {application.personalWebsiteLink && <li>Personal Website: {application.personalWebsiteLink}</li>}
+                <li>Job Link: <a href={application.jobLink}>Job Link</a></li>
+                {application.linkedinLink && <li>Linkedin: <a href={application.linkedinLink}>Linkedin</a></li>}
+                {application.githubLink && <li>Github: <a href={application.githubLink}>Github</a></li>}
+                {application.personalWebsiteLink && <li>Personal Website: <a href={application.personalWebsiteLink}>Personal Website</a></li>}
                 <li>Referrer: {application.referrerName ?? 'waiting for a hero...'}</li>
                 <li>Status: {application.status}</li>
             </ul>
