@@ -5,7 +5,7 @@
 }
 .applications li {
     display: flex;
-    align-items: center;
+    align-items: left;
     overflow: hidden;
     margin-bottom: 0px;
     margin-top: 0px;
@@ -21,7 +21,6 @@
     color: black;
     font-size: 1.2em;
     cursor: pointer;
-    /* border-style: solid; */
 }
 .applications .title:hover {
     text-decoration: underline;
@@ -31,5 +30,4 @@
     margin-right: 10px;
     color: #777;
     font-size: 1.2em;
-    /* border-style: solid; */
 }

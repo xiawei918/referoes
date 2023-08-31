@@ -23,3 +23,9 @@
     width: 290px;
     height: 100px;
 }
+
+@media all and (max-width:750px) {
+    .profile {
+        box-shadow: none;
+    }
+}

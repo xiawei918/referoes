@@ -4,3 +4,17 @@
     width: 60%;
     text-align: center;
 }
+.profile-content .image {
+    text-align: center;
+}
+.edit-profile-button {
+    text-align: center;
+}
+@media all and (max-width:750px) {
+    .profile-content {
+        text-align: left;
+    }
+    .profile-content .image {
+        text-align: center;
+    }
+}

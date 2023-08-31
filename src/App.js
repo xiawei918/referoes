@@ -37,8 +37,7 @@ function App() {
               path="/"
               element={
                 <>
-                  {!user && <Navigate to="/login"/>}
-                  {user && <Home/>}
+                  <Home/>
                 </>} />
             <Route
               path="/login"
