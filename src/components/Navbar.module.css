@@ -22,6 +22,10 @@
   position: relative;
   float: left;
 }
+.logo-image {
+  width: 250px;
+  height: 50px;
+}
 .navbar {
     display: flex;
     position: relative;
@@ -94,10 +98,27 @@
   display: none;
 }
 @media all and (max-width:750px) {
+  .header {
+    padding-top: 20px;
+    padding-bottom: 0px;
+  }
+  .logo-image {
+    width: 250px;
+    height: 50px;
+  }
   .menu .mobile-link {
     display: block;
   }
   .desktop-link {
+    display: none;
+  }
+  .nav-link {
+    padding-right: 5px;
+
+  }
+}
+@media all and (min-width:750px) {
+  .full-screen {
     display: none;
   }
 }

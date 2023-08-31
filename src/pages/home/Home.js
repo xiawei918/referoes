@@ -1,9 +1,11 @@
 import styles from './Home.module.css';
+import { useAuthContext } from '../../hooks/useAuthContext';
 import heroImage from '../../assets/refer_hero.png';
 import formImage from '../../assets/fill_out_form.png';
 import { Link } from 'react-router-dom';
 
 export default function Home() {
+    const { user } = useAuthContext();
     return (
         <div className={styles.container}>
             <div className={styles['section-one']}>
@@ -12,11 +14,11 @@ export default function Home() {
                         <div>
                             <h2><strong>Be A Hero, <br/>Give A Referral.</strong></h2>
                             <p>Help connect candidates to their dream jobs.</p>
-                            <div className={styles.buttons}>
+                            {!user && <Link to="/signup"><button className='btn-reverse'>Get Started</button></Link>}
+                            {user && <div className={styles.buttons}>
                                 <Link to="/givereferral"><button className='btn-reverse'>Give a Referral</button></Link>
-                                <div>or</div>
                                 <Link to="/getreferral"><button className='btn-reverse'>Get a Referral</button></Link>
-                            </div>
+                            </div>}
                         </div>
                         <img src={heroImage} className={styles['hero-image']} alt='digital world'/>
                     </div>
@@ -31,7 +33,7 @@ export default function Home() {
                             <p>Get a referral for your dream job.</p>
                         </div>
                         <div>
-                            <img src={formImage} style={{width: '400px', height: '220px'}} alt='filling in form'/>
+                            <img src={formImage} className={styles['sec-two-image']} alt='filling in form'/>
                         </div>
                     </div>
                 </section>

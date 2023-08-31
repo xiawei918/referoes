@@ -3,8 +3,8 @@
     margin-right: auto;
 }
 .section-one {
-    /* background-color: #f7f6f1; */
-    background-color: #fff;
+    background-color: #f7f6f1;
+    /* background-color: #fff; */
 }
 .section-two {
     background-color: #fff;
@@ -12,7 +12,8 @@
 .home-intro-section {
     max-width: 1200px;
     max-height: 600px;
-    padding-bottom: 75px;
+    padding-top: 40px;
+    padding-bottom: 120px;
     scroll-margin-top: 10px;
     /* background-color: #a4def7; */
     /* background-color: #f7f6f1; */
@@ -39,33 +40,35 @@
     font-size: 20px;
     line-height: 30px;
 }
-.intro img {
+/* .intro img {
     margin-right: 15px;
     margin-bottom: 10px;
     margin-left: 10px;
     width: 50%;
     vertical-align: middle;
-    /* display: inline-block; */
-}
+} */
 .buttons {
     display: flex;
     justify-content: space-between;
     width: 80%;
 }
+.buttons a{
+    margin-inline: 10px;
+}
 .home-how-it-works-section {
     padding-bottom: 50px;
-    /* background-color: #ffffff; */
+    text-align: left;
     width: 100%;
 }
-.how-it-works {
-    padding-top: 10%;
-    max-width: 80%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
+.home-how-it-works-section h2 {
+    margin-inline: auto;
+    font-size: 32px;
+    line-height: 48px;
+    font-weight: 700;
+    margin-top: 50px;
 }
 .how-it-works {
-    padding-top: 10%;
+    padding-top: 50px;
     max-width: 60%;
     margin: 0 auto;
     display: flex;
@@ -81,9 +84,63 @@
 .hero-image {
     display: block;
     object-fit: contain;
-    max-height: 450px;
+    max-height: 480px;
     max-width: 600px;
     aspect-ratio: 16/9;
     width: 600px;
-    height: 450px;
+    height: auto;
+}
+.sec-two-image {
+    width: 400px;
+    height: 220px;
+}
+@media all and (max-width:750px) {
+    .intro {
+        display: block;
+        padding-top: 5px;
+        padding-inline: 25px;
+    }
+    .intro h2{
+        padding-top: 20px;
+        margin-top: 10px;
+        font-size: 36px;
+        line-height: 41px;
+        font-weight: 600px;
+    }
+    .how-it-works {
+        display: block;
+        padding-top: 5px;
+        padding-inline: 25px;
+        margin-inline: auto;
+        max-width: 100%;
+    }
+    .how-it-works img {
+        display: block;
+        margin-top: 25px;
+        /* padding-inline: 25px; */
+        margin-inline: auto;
+    }
+    .sec-two-image {
+        width: auto;
+        height: 150px;
+        aspect-ratio: 20/11;
+    }
+    .buttons {
+        margin-inline: auto;
+        margin-bottom: 40px;
+    }
+    .home-intro-section {
+        padding-bottom: 25px;
+    }
+    .hero-image {
+        display: block;
+        object-fit: contain;
+        max-height: 325px;
+        max-width: 400px;
+        aspect-ratio: 16/9;
+        width: 360px;
+        height: auto;
+        margin-inline: auto;
+        margin-bottom: 30px;
+    }
 }

@@ -35,7 +35,7 @@ export default function Navbar() {
             <div className={styles.container}>
                 <div className={styles['header-inner']}>
                     <Link to="/" className={styles.logo}>
-                        <img src={logo} style={{width: '250px', height: '50px'}} alt='logo' />
+                        <img src={logo} className={styles['logo-image']} alt='logo' />
                     </Link>
                     <nav className={styles.navbar}>
                             {user && 
@@ -48,42 +48,40 @@ export default function Navbar() {
                                     Give a Referral
                                 </Link>
                             }
-                            {!user && <Link to="/login" className={styles['nav-link']}>
+                            {!user && <Link to="/login" className={`${styles['nav-link']} ${styles['desktop-link']}`}>
                                             <button className='btn'>Log In</button>
                                         </Link>}
                             {!user && 
-                                        <Link to="/signup" className={styles['nav-link']}>
+                                        <Link to="/signup" className={`${styles['nav-link']} ${styles['desktop-link']}`}>
                                             <button className='btn-reverse'>Sign Up</button>
                                         </Link>}
-                            {user && 
-                                <div className={styles.dropdown} ref={dropdownRef}>
-                                    <button onClick={handleDropdownClick} className='btn-reverse'>Menu</button>
-                                    {isOpen && (
-                                        <div className={styles.menu}>
-                                            {user && 
-                                                <Link to="/getreferral" className={`${styles['nav-link']} ${styles['mobile-link']}`}>
-                                                    Get a Referral
-                                                </Link>
-                                            }
-                                            {user && 
-                                                <Link to="/givereferral" className={`${styles['nav-link']} ${styles['mobile-link']}`}>
-                                                    Give a Referral
-                                                </Link>
-                                            }
-                                            {!user && 
-                                                <Link to="/login" className={styles['nav-link']}>
-                                                    Log In
-                                                </Link>}
-                                            {!user && 
-                                                <Link to="/signup" className={styles['nav-link']}>
-                                                    Sign Up
-                                                </Link>}
-                                        <Link to={`/profiles/${user.uid}`}>Profile</Link>
-                                        <a href='/' onClick={logout}>Logout</a>
-                                        </div>
-                                    )}
-                                </div>
-                            }
+                            <div className={`${styles.dropdown} ${!user?styles['full-screen']:''}`} ref={dropdownRef}>
+                                <button onClick={handleDropdownClick} className='btn-reverse'>Menu</button>
+                                {isOpen && (
+                                    <div className={styles.menu}>
+                                        {user && 
+                                            <Link to="/getreferral" className={`${styles['nav-link']} ${styles['mobile-link']}`}>
+                                                Get a Referral
+                                            </Link>
+                                        }
+                                        {user && 
+                                            <Link to="/givereferral" className={`${styles['nav-link']} ${styles['mobile-link']}`}>
+                                                Give a Referral
+                                            </Link>
+                                        }
+                                        {!user && 
+                                            <Link to="/login" className={styles['nav-link']}>
+                                                Log In
+                                            </Link>}
+                                        {!user && 
+                                            <Link to="/signup" className={styles['nav-link']}>
+                                                Sign Up
+                                            </Link>}
+                                    {user && <Link to={`/profiles/${user.uid}`}>Profile</Link>}
+                                    {user && <a href='/' onClick={logout}>Logout</a>}
+                                    </div>
+                                )}
+                            </div>
                     </nav>
                 </div>
             </div>
