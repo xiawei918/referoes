@@ -1,0 +1,42 @@
+.company-users {
+    max-width: 90%;
+    margin-left: 10%;
+    margin: auto auto;
+}
+.company-users li {
+    display: flex;
+    align-items: left;
+    overflow: hidden;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-right: 20px;
+    justify-content: space-between;
+}
+.user-list {
+    
+}
+.company-users p {
+    margin: 5px;
+}
+.company-users .title {
+    color: black;
+    font-size: 1.2em;
+    cursor: pointer;
+    text-align: left;
+}
+.company-users .title:hover {
+    text-decoration: underline;
+}
+.company-users .createdat {
+    margin-left: auto;
+    margin-right: 10px;
+    color: #777;
+    font-size: 1.2em;
+}
+@media all and (max-width:750px) {
+    .company-users li {
+        display: block;
+    }
+  }

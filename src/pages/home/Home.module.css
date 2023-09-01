@@ -94,16 +94,16 @@
     width: 400px;
     height: 220px;
 }
-.popular-companies {
+.sought-after-companies {
     padding-top: 10px;
     max-width: 60%;
     margin: 0 auto;
 }
-.popular-companies ul {
+.sought-after-companies ul {
     display: flex;
     justify-content: space-around;
 }
-.popular-companies li {
+.sought-after-companies li {
     margin-top: 10px;
 }
 @media all and (max-width:750px) {

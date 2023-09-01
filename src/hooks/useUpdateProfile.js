@@ -49,7 +49,13 @@ export const useUpdateProfile = () => {
                 const companyRef = doc(projectFirestore, 'companies', company);
                 const companySnap = await getDoc(companyRef);
                 if (!companySnap.exists()) {
-                    batch.set(companyRef, {applicationCount: 0});
+                    batch.set(companyRef, {applicationCount: 0, memberCount: 1});
+                }
+                else {
+                    const companyData = companySnap.data();
+                    if (!auth.currentUser.company) {
+                        batch.update(companyRef, {...companyData, memberCount: 1 + (companyData?.memberCount ?? 0)});
+                    }
                 }
             }
             console.log(userDoc)

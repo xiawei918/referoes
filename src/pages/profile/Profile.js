@@ -75,7 +75,7 @@ export default function Profile() {
     const handleProfileSubmit = (e) => {
         e.preventDefault();
         try {
-            updateUserProfile({ displayName, email, thumbnail, bio, company, resume });
+            updateUserProfile({ displayName, email, thumbnail, bio, company: company.toUpperCase(), resume });
         }
         catch (err) {
             navigate('/login')

@@ -20,11 +20,10 @@ export const useSubmitApplication = () => {
             const companySnap = await getDoc(companyRef);
             if (companySnap.exists()) {
                 const companyAppCount = companySnap.data()?.applicationCount;
-                updateDoc(companyRef, {applicationCount: companyAppCount+1});
+                updateDoc(companyRef, {...companySnap.data(), applicationCount: companyAppCount+1});
             }
             else {
-                console.log('not exist')
-                setDoc(companyRef, {applicationCount: 1});
+                setDoc(companyRef, {applicationCount: 1, memberCount: 0});
             }
 
             // dispatch logout action

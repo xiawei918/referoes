@@ -13,6 +13,7 @@ export default function Home() {
         ["applicationCount", 'desc'],
         [5]
         );
+    
     return (
         <div className={styles.container}>
             <div className={styles['section-one']}>
@@ -43,12 +44,12 @@ export default function Home() {
                             <img src={formImage} className={styles['sec-two-image']} alt='filling in form'/>
                         </div>
                     </div>
-                    <div className={styles['popular-companies']}>
-                        <h3>Popular companies</h3>
+                    <div className={styles['sought-after-companies']}>
+                        <h3>Most Sought-After companies</h3>
                         <ul>
                             {getCompaniesError && <p>getCompaniesError</p>}
                             {companies && companies.map((company) => {
-                                return <li key={company.id}><button className='btn'>{company.id}</button></li>
+                                return <li key={company.id}><Link to={`/companyapplicants/${company.id}`}><button className='btn'>{company.id}</button></Link></li>
                             })}
                         </ul>
                     </div>

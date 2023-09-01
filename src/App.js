@@ -10,6 +10,8 @@ import Profile from './pages/profile/Profile';
 import ApplicationForm from './pages/GetReferral/ApplicationForm';
 import Application from './pages/application/Application';
 import GiveReferral from './pages/giveReferral/GiveReferral';
+import CompanyReferrers from './pages/company/CompanyReferrers';
+import CompanyApplicants from './pages/company/CompanyApplicants';
 
 function App() {
   const { authIsReady, user } = useAuthContext();
@@ -72,6 +74,16 @@ function App() {
                 element={
                   <GiveReferral/>
                 }/>
+              <Route 
+                path="/companyreferrers/:company" 
+                element={
+                  <CompanyReferrers/>
+                }/>
+              <Route 
+              path="/companyapplicants/:company" 
+              element={
+                <CompanyApplicants/>
+              }/>
           </Routes>
         </BrowserRouter>
       )}
