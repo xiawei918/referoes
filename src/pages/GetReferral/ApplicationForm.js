@@ -22,7 +22,6 @@ export default function ApplicationForm() {
     const [personalWebsiteLink, setpersonalWebsiteLink] = useState('');
     const { submitApplication, error, isPending, response } = useSubmitApplication();
     const { document: profileUser, Usererror } = useDocument('users', uid);
-    console.log(Usererror)
     const navigate = useNavigate();
 
 
@@ -44,7 +43,7 @@ export default function ApplicationForm() {
             lastName,
             email,
             phone,
-            company,
+            company: company.toUpperCase(),
             resumeUrl,
             jobTitle,
             jobLink,
@@ -59,7 +58,6 @@ export default function ApplicationForm() {
             application = {...application, referrer: profileUser};
         };
         await submitApplication(application);
-        console.log(response)
     }
 
     const handleResumeChange = (e) => {
@@ -92,7 +90,7 @@ export default function ApplicationForm() {
             setlinkedinLink('');
             setGithubLink('');
             setpersonalWebsiteLink('');
-            navigate('/')
+            navigate('/givereferral')
         }
     }, [response.success, navigate])
 

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useFirestore } from "./useFirestore"; 
+import { doc, setDoc, updateDoc, getDoc } from "firebase/firestore"
+import { projectFirestore } from "../firebase/config";
 
 export const useSubmitApplication = () => {
     const [isCancelled, setIsCancelled] = useState(false);
@@ -10,10 +12,20 @@ export const useSubmitApplication = () => {
     const submitApplication = async (application) => {
         setError(null);
         setIsPending(true);
-        console.log(application)
         // sign the user in
         try {
             await addDocument(application);
+
+            const companyRef = doc(projectFirestore, 'companies', application.company);
+            const companySnap = await getDoc(companyRef);
+            if (companySnap.exists()) {
+                const companyAppCount = companySnap.data()?.applicationCount;
+                updateDoc(companyRef, {applicationCount: companyAppCount+1});
+            }
+            else {
+                console.log('not exist')
+                setDoc(companyRef, {applicationCount: 1});
+            }
 
             // dispatch logout action
             // update state

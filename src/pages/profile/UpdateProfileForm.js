@@ -1,7 +1,6 @@
 import styles from './UpdateProfileForm.module.css';
 
 export default function UpdateProfileForm(props) {
-    console.log(props.profileUser)
     return (
         <form className={styles['profile-form']} onSubmit={props.handleProfileSubmit}>
             <label>

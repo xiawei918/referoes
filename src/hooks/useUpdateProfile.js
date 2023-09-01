@@ -3,7 +3,7 @@ import { auth, storage, projectFirestore } from "../firebase/config";
 import { updateProfile, updateEmail } from "firebase/auth";
 import { useAuthContext } from "./useAuthContext";
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { updateDoc, doc } from "firebase/firestore"
+import { updateDoc, doc, addDoc, writeBatch, getDoc } from "firebase/firestore"
 
 
 export const useUpdateProfile = () => {
@@ -37,6 +37,7 @@ export const useUpdateProfile = () => {
         }
 
         try {
+            const batch = writeBatch(projectFirestore);
             if (Object.keys(newProfile).length > 0) {
                 await updateProfile(auth.currentUser, newProfile);
             }
@@ -45,8 +46,15 @@ export const useUpdateProfile = () => {
             }
             if (company) {
                 userDoc = { ...userDoc, company};
+                const companyRef = doc(projectFirestore, 'companies', company);
+                const companySnap = await getDoc(companyRef);
+                if (!companySnap.exists()) {
+                    batch.set(companyRef, {applicationCount: 0});
+                }
             }
-            await updateDoc(doc(projectFirestore, 'users', auth.currentUser.uid), userDoc);
+            console.log(userDoc)
+            batch.update(doc(projectFirestore, 'users', auth.currentUser.uid), userDoc);
+            await batch.commit();
             if (email !== auth.currentUser.email) {
                 await updateEmail(auth.currentUser, email);
             }
