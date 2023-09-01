@@ -9,8 +9,8 @@ import { auth } from '../../firebase/config';
 export default function Application() {
   const { id } = useParams();
   const { document: application, error } = useDocument('applications', id);
+  const { document: createdByUser, Usererror } = useDocument('users', application?.uid);
   const { updateError, isPending, updateDocument } = useUpdateDocument('applications', id);
-  console.log(application)
 
   const handleReferClick = async () => {
     updateDocument({
@@ -27,7 +27,7 @@ export default function Application() {
       {application && (
         <div>
           <h1 className={styles.title}>{`referral for ${application.jobTitle} @ ${application.company}`}</h1>
-          <p>{application.createdAt.toDate().toDateString()}</p>
+          <p>{application.createdAt.toDate().toDateString()} by {createdByUser && (createdByUser.displayName ?? '')}</p>
           <div className={styles['application-content']}>
             <ul className={styles['application-details']}>
                 <li>Candidate Name: {`${application.firstName} ${application.lastName}`}</li>
@@ -42,7 +42,7 @@ export default function Application() {
                 <li>Status: {application.status}</li>
             </ul>
           </div>
-          {!isPending && application.status === 'open' && <button className='btn-reverse' onClick={handleReferClick}>Refer</button>}
+          {!isPending && application.status === 'open' && createdByUser && auth.currentUser.uid !== createdByUser?.id && <button className='btn-reverse' onClick={handleReferClick}>Refer</button>}
           { isPending && <button className='btn' disabled>loading</button>}
           {updateError && <p>{updateError}</p>}
         </div>
