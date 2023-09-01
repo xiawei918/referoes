@@ -9,9 +9,11 @@ import { auth } from '../../firebase/config';
 export default function Application() {
   const { id } = useParams();
   const { document: application, error } = useDocument('applications', id);
-  const { document: createdByUser, Usererror } = useDocument('users', application?.uid);
+  const { document: createdByUser, userError } = useDocument('users', application?.uid);
   const { updateError, isPending, updateDocument } = useUpdateDocument('applications', id);
-
+  if (userError) {
+    console.log(userError);
+  }
   const handleReferClick = async () => {
     updateDocument({
         ...application, 

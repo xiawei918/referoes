@@ -21,9 +21,12 @@ export default function ApplicationForm() {
     const [githubLink, setGithubLink] = useState('');
     const [personalWebsiteLink, setpersonalWebsiteLink] = useState('');
     const { submitApplication, error, isPending, response } = useSubmitApplication();
-    const { document: profileUser, Usererror } = useDocument('users', uid);
+    const { document: profileUser, userError } = useDocument('users', uid);
     const navigate = useNavigate();
 
+    if (userError) {
+        console.log(userError);
+    }
 
     const [resumeError, setResumeError] = useState(null);
 
@@ -57,6 +60,7 @@ export default function ApplicationForm() {
         if (profileUser) {
             application = {...application, referrer: profileUser};
         };
+        
         await submitApplication(application);
     }
 

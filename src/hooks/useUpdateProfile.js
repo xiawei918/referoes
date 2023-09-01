@@ -3,7 +3,7 @@ import { auth, storage, projectFirestore } from "../firebase/config";
 import { updateProfile, updateEmail } from "firebase/auth";
 import { useAuthContext } from "./useAuthContext";
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { updateDoc, doc, addDoc, writeBatch, getDoc } from "firebase/firestore"
+import { doc, writeBatch, getDoc } from "firebase/firestore"
 
 
 export const useUpdateProfile = () => {
