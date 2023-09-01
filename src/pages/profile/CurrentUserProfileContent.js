@@ -14,7 +14,7 @@ export default function CurrentUserProfileContent({ profileUser, handleProfileEd
                 <li>email: {profileUser?.email}</li>
                 <li>company: {profileUser?.company}</li>
                 <li>bio: {profileUser?.bio}</li>
-                <li>resume: <a href={profileUser?.pdfUrl}>FILE LINK</a></li>
+                <li>resume: <a href={profileUser?.pdfUrl}>{profileUser?.pdfUrl && 'FILE LINK'}</a></li>
             </ul>
             <div className={styles['edit-profile-button']}>
                 <button className='btn' onClick={handleProfileEdit}>Edit Profile</button>
