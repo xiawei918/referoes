@@ -26,7 +26,8 @@ function App() {
               path="/getreferral/:uid?"
               element={
                 <>
-                  <ApplicationForm/>
+                  {user && <ApplicationForm/>}
+                  {!user && <Navigate to="/login"/>}
                 </>}/>
             <Route
               path="/profiles/:uid"
@@ -67,12 +68,18 @@ function App() {
               <Route 
                 path="/applications/:id" 
                 element={
-                  <Application/>
+                  <>
+                  {!user && <Navigate to="/login" />}
+                  {user && <Application />}
+                  </>
                 }/>
               <Route 
                 path="/givereferral" 
                 element={
-                  <GiveReferral/>
+                  <>
+                  {!user && <Navigate to="/login" />}
+                  {user && <GiveReferral />}
+                </>
                 }/>
               <Route 
                 path="/companyreferrers/:company" 
@@ -82,7 +89,10 @@ function App() {
               <Route 
               path="/companyapplicants/:company" 
               element={
-                <CompanyApplicants/>
+                <>
+                  {!user && <Navigate to="/login" />}
+                  {user && <CompanyApplicants />}
+                </>
               }/>
           </Routes>
         </BrowserRouter>

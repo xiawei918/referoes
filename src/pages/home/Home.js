@@ -44,7 +44,7 @@ export default function Home() {
                             <img src={formImage} className={styles['sec-two-image']} alt='filling in form'/>
                         </div>
                     </div>
-                    <div className={styles['sought-after-companies']}>
+                    {user && <div className={styles['sought-after-companies']}>
                         <h3>Most Sought-After companies</h3>
                         <ul>
                             {getCompaniesError && <p>getCompaniesError</p>}
@@ -52,7 +52,7 @@ export default function Home() {
                                 return <li key={company.id}><Link to={`/companyreferrers/${company.id}`}><button className='btn'>{company.id}</button></Link></li>
                             })}
                         </ul>
-                    </div>
+                    </div>}
                 </section>
             </div>
         </div>
