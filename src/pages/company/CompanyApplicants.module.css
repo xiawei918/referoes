@@ -14,8 +14,8 @@
     padding-right: 20px;
     justify-content: space-between;
 }
-.applicants-list {
-    
+.applicants-list li {
+    margin-inline: auto;
 }
 .company-applicants p {
     margin: 5px;

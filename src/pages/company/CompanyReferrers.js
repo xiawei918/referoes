@@ -22,7 +22,7 @@ export default function CompanyReferrers() {
             <ul className={styles['user-list']}>
                 {companyUsers.map((user) => (
                     <li key={user.id}>
-                        <img src={user.photoURL??default_avatar} alt="profile picture"/>
+                        <img src={user.photoURL??default_avatar} alt="profile"/>
                         <p><Link to={"/profiles/" + user.id}>{`${user.displayName}`}</Link></p>
                     </li>
                 ))}
