@@ -14,7 +14,6 @@ export default function CompanyApplicants() {
     ["createdAt", 'desc']
     );
 
-  console.log(companyName)
   return (
     <div className={styles['company-applicants']}>
       {error && <p className="error">{error}</p>}

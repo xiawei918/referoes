@@ -10,7 +10,7 @@ export default function Home() {
     const { documents: companies, getCompaniesError } = useCollection(
         'companies', 
         [],
-        ["applicationCount", 'desc'],
+        ["memberCount", 'desc'],
         [5]
         );
     
@@ -49,7 +49,7 @@ export default function Home() {
                         <ul>
                             {getCompaniesError && <p>getCompaniesError</p>}
                             {companies && companies.map((company) => {
-                                return <li key={company.id}><Link to={`/companyapplicants/${company.id}`}><button className='btn'>{company.id}</button></Link></li>
+                                return <li key={company.id}><Link to={`/companyreferrers/${company.id}`}><button className='btn'>{company.id}</button></Link></li>
                             })}
                         </ul>
                     </div>

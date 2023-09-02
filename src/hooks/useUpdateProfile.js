@@ -57,8 +57,14 @@ export const useUpdateProfile = () => {
                         batch.update(companyRef, {...companyData, memberCount: 1 + (companyData?.memberCount ?? 0)});
                     }
                 }
+                if (auth.currentUser.company) {
+                    const currentCompanyRef = doc(projectFirestore, 'companies', auth.currentUser.company);
+                    const currentCompanySnap = await getDoc(currentCompanyRef);
+                    const currentCompanyData = currentCompanySnap.data();
+                    batch.update(currentCompanyRef, {...currentCompanyData, memberCount: currentCompanyData?.memberCount - 1});
+                }
             }
-            console.log(userDoc)
+            
             batch.update(doc(projectFirestore, 'users', auth.currentUser.uid), userDoc);
             await batch.commit();
             if (email !== auth.currentUser.email) {
