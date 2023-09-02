@@ -20,6 +20,9 @@ export default function Profile() {
     const [resumeError, setResumeError] = useState(null);
     const [bio, setBio] = useState('');
     const [company, setCompany] = useState('');
+    const [linkedinLink, setLinkedinLink] = useState('');
+    const [githubLink, setGithubLink] = useState('');
+    const [personalWebsiteLink, setPersonalWebsiteLink] = useState('');
     const [isEditingProfile, setIsEditingProfile] = useState(false);
     const { updateUserProfile, isPending, error: updateProfileError } = useUpdateProfile();
     const { document: profileUser, error } = useDocument('users', uid);
@@ -116,6 +119,12 @@ export default function Profile() {
                     setEmail={setEmail}
                     setCompany={setCompany}
                     setBio={setBio}
+                    setPersonalWebsiteLink={setPersonalWebsiteLink}
+                    setLinkedinLink={setLinkedinLink}
+                    setGithubLink={setGithubLink}
+                    linkedinLink={linkedinLink}
+                    githubLink={githubLink}
+                    personalWebsiteLink={personalWebsiteLink}
                     email={email}
                     displayName={displayName}
                     company={company}

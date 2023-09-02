@@ -27,3 +27,11 @@
     display: block;
     color: #000000
 }
+.application-form .on-file-resume-label {
+    display: flex;
+    justify-content: space-between;
+    margin: auto auto;
+}
+.application-form .on-file-resume-span {
+    width: 200px;
+}

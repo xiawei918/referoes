@@ -17,11 +17,13 @@ export default function ApplicationForm() {
     const [resume, setResume] = useState('');
     const [jobTitle, setJobTitle] = useState('');
     const [jobLink, setJobLink] = useState('');
-    const [linkedinLink, setlinkedinLink] = useState('');
+    const [linkedinLink, setLinkedinLink] = useState('');
     const [githubLink, setGithubLink] = useState('');
-    const [personalWebsiteLink, setpersonalWebsiteLink] = useState('');
+    const [useOnFileResume, setUseOnFileResume] = useState(true);
+    const [personalWebsiteLink, setPersonalWebsiteLink] = useState('');
     const { submitApplication, error, isPending, response } = useSubmitApplication();
     const { document: profileUser, userError } = useDocument('users', uid);
+    const { document: currentUser, currentUserError } = useDocument('users', auth.currentUser.uid);
     const navigate = useNavigate();
 
     if (userError) {
@@ -83,6 +85,22 @@ export default function ApplicationForm() {
     }
 
     useEffect(() => {
+        console.log(auth.currentUser)
+        if (currentUser) {
+            setFirstName('');
+            setLastName('');
+            setEmail(currentUser.email);
+            setPhone('');
+            setResume('');
+            setJobTitle('');
+            setJobLink('');
+            setLinkedinLink(currentUser.linkedinLink);
+            setGithubLink(currentUser.githubLink);
+            setPersonalWebsiteLink(currentUser.personalWebsiteLink);
+        }
+    }, [currentUser])
+
+    useEffect(() => {
         if (response?.success) {
             setFirstName('');
             setLastName('');
@@ -91,9 +109,9 @@ export default function ApplicationForm() {
             setResume('');
             setJobTitle('');
             setJobLink('');
-            setlinkedinLink('');
+            setLinkedinLink('');
             setGithubLink('');
-            setpersonalWebsiteLink('');
+            setPersonalWebsiteLink('');
             navigate('/givereferral')
         }
     }, [response.success, navigate])
@@ -170,7 +188,7 @@ export default function ApplicationForm() {
                     <span>candidate Linkin URL:</span>
                     <input
                         type="url"
-                        onChange={(e) => setlinkedinLink(e.target.value)}
+                        onChange={(e) => setLinkedinLink(e.target.value)}
                         value={linkedinLink}
                     />
                 </label>
@@ -186,10 +204,23 @@ export default function ApplicationForm() {
                     <span>candidate personal website URL:</span>
                     <input
                         type="url"
-                        onChange={(e) => personalWebsiteLink(e.target.value)}
+                        onChange={(e) => setPersonalWebsiteLink(e.target.value)}
                         value={personalWebsiteLink}
                     />
                 </label>
+                {currentUser &&
+                <label className={styles['on-file-resume-label']}>
+                    <span className={styles['on-file-resume-span']}>Use on file </span>
+                    <a href={currentUser.pdfUrl}>resume</a>
+                    <input 
+                        required
+                        type="checkbox"
+                        checked={useOnFileResume}
+                        onChange={() => setUseOnFileResume(!useOnFileResume)}
+                    />
+                    {currentUserError && <div className="error">{currentUserError}</div>}
+                </label>}
+                { !useOnFileResume &&
                 <label>
                     <span>resume:</span>
                     <input 
@@ -199,7 +230,7 @@ export default function ApplicationForm() {
                         onChange={handleResumeChange}
                     />
                     {resumeError && <div className="error">{resumeError}</div>}
-                </label>
+                </label>}
                 { !isPending && <button className='btn'>Submit</button>}
                 { isPending && <button className='btn' disabled>loading</button>}
                 { error && <p>{error}</p>}

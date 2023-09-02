@@ -45,6 +45,30 @@ export default function UpdateProfileForm(props) {
                 ></textarea>
             </label>
             <label>
+                <span>Linkedin:</span>
+                <input 
+                    type="text"
+                    onChange={(e) => props.setLinkedinLink(e.target.value)}
+                    value={props.linkedinLink}
+                />
+            </label>
+            <label>
+                <span>Github:</span>
+                <input 
+                    type="text" 
+                    onChange={(e) => props.setGithubLink(e.target.value)}
+                    value={props.githubLink}
+                />
+            </label>
+            <label>
+                <span>Personal website:</span>
+                <input 
+                    type="text" 
+                    onChange={(e) => props.setPersonalWebsiteLink(e.target.value)}
+                    value={props.personalWebsiteLink}
+                />
+            </label>
+            <label>
                 <span>resume:</span>
                 <input 
                     type="file"
