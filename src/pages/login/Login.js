@@ -2,6 +2,7 @@ import { useState } from 'react';
 // import { useLogin } from '../../hooks/useLogin';
 import { Link } from 'react-router-dom';
 import { useLogin } from '../../hooks/useLogin';
+import { GoogleLoginButton, GithubLoginButton } from "react-social-login-buttons";
 
 // styles
 import styles from './Login.module.css';
@@ -50,9 +51,10 @@ export default function Login() {
                 { !isPending && <button className='btn'>Login</button>} 
                 { isPending && <button className='btn' disabled>loading</button>}
             </div>
+            <hr></hr>
             <div className={styles['oauth-providers']}>
-                <button className='btn' onClick={handleLoginWithGoogle}>Login with Google</button>
-                <button className='btn' onClick={handleLoginWithGithub}>Login with Github</button>
+                <GoogleLoginButton onClick={handleLoginWithGoogle}/>
+                <GithubLoginButton onClick={handleLoginWithGithub}/>
             </div>
             { error && <p>{error}</p>}
         </form>
