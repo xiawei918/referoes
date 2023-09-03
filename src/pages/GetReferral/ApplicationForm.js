@@ -94,9 +94,9 @@ export default function ApplicationForm() {
             setResume('');
             setJobTitle('');
             setJobLink('');
-            setLinkedinLink(currentUser.linkedinLink);
-            setGithubLink(currentUser.githubLink);
-            setPersonalWebsiteLink(currentUser.personalWebsiteLink);
+            setLinkedinLink(currentUser.linkedinLink ?? '');
+            setGithubLink(currentUser.githubLink ?? '');
+            setPersonalWebsiteLink(currentUser.personalWebsiteLink ?? '');
         }
     }, [currentUser])
 

@@ -9,11 +9,21 @@ import styles from './Login.module.css';
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { login, error, isPending } = useLogin();
+    const { login, loginWithGoogle, loginWithGithub,
+         error, isPending } = useLogin();
 
     const handleLoginSubmit = (e) => {
         e.preventDefault();
         login(email, password);
+    }
+
+    const handleLoginWithGoogle = (e) => {
+        e.preventDefault();
+        loginWithGoogle();
+    }
+    const handleLoginWithGithub = (e) => {
+        e.preventDefault();
+        loginWithGithub();
     }
 
     return (
@@ -39,6 +49,10 @@ export default function Login() {
             <div className={styles['container']}>
                 { !isPending && <button className='btn'>Login</button>} 
                 { isPending && <button className='btn' disabled>loading</button>}
+            </div>
+            <div className={styles['oauth-providers']}>
+                <button className='btn' onClick={handleLoginWithGoogle}>Login with Google</button>
+                <button className='btn' onClick={handleLoginWithGithub}>Login with Github</button>
             </div>
             { error && <p>{error}</p>}
         </form>

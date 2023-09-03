@@ -1,18 +1,46 @@
 import styles from './Home.module.css';
+import { useEffect } from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import heroImage from '../../assets/refer_hero.png';
 import formImage from '../../assets/fill_out_form.png';
 import { useCollection } from '../../hooks/useCollection';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Link } from 'react-router-dom';
+import { setDoc, doc } from "firebase/firestore"
+import { projectFirestore } from '../../firebase/config';
 
 export default function Home() {
-    const { user } = useAuthContext();
+    const { user, dispatch } = useAuthContext();
     const { documents: companies, getCompaniesError } = useCollection(
         'companies', 
         [],
         ["memberCount", 'desc'],
         [5]
         );
+
+    useEffect(() => {
+        async function storeUser(user) {
+            try {
+                await setDoc(doc(projectFirestore, 'users', auth.currentUser.uid), { 
+                    displayName: user.displayName, email: user.email, 
+                    photoURL: user.photoURL, emailVerified: user.emailVerified, 
+                    phoneNumber: user.phoneNumber
+                });
+            }
+            catch (err) {
+                console.log(err.message);
+            }
+        }
+        const auth = getAuth();
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+        if (user) {
+            console.log(user)
+            storeUser(user);
+            dispatch({ type: 'AUTH_IS_READY', payload: user });
+        }
+        return unsubscribe;
+        });
+    }, [dispatch]);
     
     return (
         <div className={styles.container}>
@@ -22,7 +50,7 @@ export default function Home() {
                         <div>
                             <h2><strong>Be A Hero, <br/>Give A Referral.</strong></h2>
                             <p>Help connect candidates to their dream jobs.</p>
-                            {!user && <Link to="/signup"><button className='btn-reverse'>Get Started</button></Link>}
+                            {!user && <Link to="/login"><button className='btn-reverse'>Get Started</button></Link>}
                             {user && <div className={styles.buttons}>
                                 <Link to="/givereferral"><button className='btn-reverse'>Give a Referral</button></Link>
                                 <Link to="/getreferral"><button className='btn-reverse'>Get a Referral</button></Link>

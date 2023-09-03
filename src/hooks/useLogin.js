@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { auth } from "../firebase/config";
 import { useAuthContext } from "./useAuthContext";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, GoogleAuthProvider,
+     getAuth, signInWithRedirect, GithubAuthProvider,
+     FacebookAuthProvider } from "firebase/auth";
 
 export const useLogin = () => {
     const [isCancelled, setIsCancelled] = useState(false);
@@ -32,10 +34,47 @@ export const useLogin = () => {
         }
     }
 
+    const loginWithGoogle = async() => {
+        try {
+            const auth = getAuth();
+            const provider = new GoogleAuthProvider();
+            await loginWithProvider(auth, provider);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    const loginWithFacebook = async() => {
+        try {
+            const auth = getAuth();
+            const provider = new FacebookAuthProvider();
+            await loginWithProvider(auth, provider);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    const loginWithGithub = async() => {
+        try {
+            const auth = getAuth();
+            const provider = new GithubAuthProvider();
+            await loginWithProvider(auth, provider);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    const loginWithProvider = async (auth, provider) => {
+        signInWithRedirect(auth, provider);
+    }
+
     useEffect(() => {
         setIsCancelled(false);
         return () => setIsCancelled(true);
     }, []);
 
-    return { login, error, isPending };
+    return { login, loginWithGoogle, loginWithFacebook, loginWithGithub, error, isPending };
 }
