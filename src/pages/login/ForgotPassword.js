@@ -3,14 +3,17 @@ import { useForgotPassword } from '../../hooks/useForgotPassword';
 
 // styles
 import styles from './ForgotPassword.module.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function ForgotPassword() {
     const [email, setEmail] = useState('');
+    const navigate = useNavigate();
     const { resetPasswordViaEmail, error, isPending } = useForgotPassword();
 
-    const handleResetPasswordSubmit = (e) => {
+    const handleResetPasswordSubmit = async (e) => {
         e.preventDefault();
-        resetPasswordViaEmail(email);
+        await resetPasswordViaEmail(email);
+        navigate('/');
     }
 
     return (
