@@ -32,9 +32,9 @@ export default function Home() {
             }
         }
         const auth = getAuth();
+        
         const unsubscribe = onAuthStateChanged(auth, (user) => {
         if (user) {
-            console.log(user)
             storeUser(user);
             dispatch({ type: 'AUTH_IS_READY', payload: user });
         }

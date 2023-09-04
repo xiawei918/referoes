@@ -12,7 +12,6 @@ export default function Navbar() {
     const { user } = useAuthContext();
     const [isOpen, setIsOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
-    const [searchOption, setSearchOption] = useState('company');
     const navigate = useNavigate();
     const dropdownRef = useRef(null);
     const { logout } = useLogout();
@@ -35,14 +34,16 @@ export default function Navbar() {
   }
 
   const handleSearchSubmitWithEnter = (e) => {
-    if (e.keyCode == 13) {
+    if (e.keyCode === 13) {
         handleSearchSubmit();
     }
   }
 
   useEffect(() => {
+    setSearchTerm('');
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
+        setSearchTerm('');
         document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);

@@ -7,7 +7,6 @@ import styles from './UserList.module.css';
 
 export default function UserList({userList, error}) {
 
-    console.log(userList)
     return (
     <div className={styles['users']}>
       {error && <p className="error">{error}</p>}

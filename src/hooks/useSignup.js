@@ -26,7 +26,7 @@ export const useSignup = () => {
 
             // create a user document
             await setDoc(doc(projectFirestore, 'users', auth.currentUser.uid), { 
-                displayName, email
+                displayName, email, displayNameUpper: displayName.toUpperCase()
               });
 
             dispatch({ type: 'LOGIN', payload: auth.currentUser })

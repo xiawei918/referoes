@@ -1,6 +1,7 @@
 import { useSearchParams, useLocation } from 'react-router-dom';
-import { useCollection } from '../../hooks/useCollection';
+import { useSearchCollection } from '../../hooks/useSearchCollection';
 import { Link } from 'react-router-dom';
+import UserList from '../../components/UserList';
 import default_avatar from '../../assets/anonymous.png';
 
 // styles
@@ -12,15 +13,15 @@ export default function SearchResult() {
     const queryParams = new URLSearchParams(queryString);
     const userTerm = queryParams.get('user');
 
-    const { documents: searchResultList, error } = useCollection(
+    const { documents: searchResultList, error } = useSearchCollection(
         'users', 
-        ['displayName', '==', userTerm],
+        {'displayNameUpper': userTerm.toUpperCase()}, 
+        ['company', '==', userTerm.toUpperCase()],
         []
         );
-    
   return (
     <div className={styles['company-users']}>
-      <p>haha</p>
+      {searchResultList && <UserList userList={searchResultList} error={error}/>}
     </div>
   )
 }

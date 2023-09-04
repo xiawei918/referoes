@@ -12,7 +12,7 @@ export default function CompanyReferrers() {
   const { company: companyName } = useParams();
   const { documents: companyUsers, error } = useCollection(
     'users', 
-    [['company', '==', companyName]],
+    [['company', '==', companyName.toUpperCase()]],
     []
     );
 

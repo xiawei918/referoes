@@ -10,7 +10,7 @@ export default function CompanyApplicants() {
   const { company: companyName } = useParams();
   const { documents: companycandidates, error } = useCollection(
     'applications', 
-    ['company', '==', companyName],
+    [['company', '==', companyName.toUpperCase()]],
     ["createdAt", 'desc']
     );
 

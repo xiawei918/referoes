@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { auth } from "../firebase/config";
 import { useAuthContext } from "./useAuthContext";
 import { signInWithEmailAndPassword, GoogleAuthProvider,
-     getAuth, signInWithRedirect, GithubAuthProvider,
+     getAuth, signInWithRedirect, GithubAuthProvider, signInWithPopup,
      FacebookAuthProvider } from "firebase/auth";
 
 export const useLogin = () => {
