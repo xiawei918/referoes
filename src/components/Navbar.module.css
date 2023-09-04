@@ -21,6 +21,7 @@
 .logo {
   position: relative;
   float: left;
+  margin-right: 10px
 }
 .logo-image {
   width: 250px;
@@ -31,6 +32,22 @@
     position: relative;
     float: right;
     align-items: center;
+}
+.navbar .search-label {
+  display: flex;
+  justify-content: space-around;
+  margin: auto auto;
+}
+.search-icon {
+  cursor: pointer;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 10px;
+}
+.searchbar {
+  width: 150px;
+  height: 35px;
+  margin-right: 20px;
 }
 .nav-link {
     padding-right: 20px;

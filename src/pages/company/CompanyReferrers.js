@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useCollection } from '../../hooks/useCollection';
 import { Link } from 'react-router-dom';
+import UserList from '../../components/UserList';
 import default_avatar from '../../assets/anonymous.png';
 
 // styles
@@ -11,23 +12,14 @@ export default function CompanyReferrers() {
   const { company: companyName } = useParams();
   const { documents: companyUsers, error } = useCollection(
     'users', 
-    ['company', '==', companyName],
+    [['company', '==', companyName]],
     []
     );
-    console.log(companyUsers)
-  return (
-    <div className={styles['company-users']}>
+
+    return (
+    <div>
       {error && <p className="error">{error}</p>}
-        {companyUsers && 
-            <ul className={styles['user-list']}>
-                {companyUsers.map((user) => (
-                    <li key={user.id}>
-                        <img src={user.photoURL??default_avatar} alt="profile"/>
-                        <p><Link to={"/profiles/" + user.id}>{`${user.displayName}`}</Link></p>
-                    </li>
-                ))}
-            </ul>
-        }
+      {companyUsers && <UserList userList={companyUsers} error={error}/>}
     </div>
   )
 }

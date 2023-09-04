@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useState, useEffect, useRef } from 'react';
 import { useLogout } from '../hooks/useLogout';
+import { FaSearch } from "react-icons/fa";
 import logo from '../assets/logo.png';
 
 // styles
@@ -10,6 +11,9 @@ import styles from './Navbar.module.css';
 export default function Navbar() {
     const { user } = useAuthContext();
     const [isOpen, setIsOpen] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchOption, setSearchOption] = useState('company');
+    const navigate = useNavigate();
     const dropdownRef = useRef(null);
     const { logout } = useLogout();
 
@@ -22,6 +26,19 @@ export default function Navbar() {
   const handleDropdownClick = () => {
     setIsOpen(!isOpen);
   };
+
+  const handleSearchSubmit = () => {
+    navigate({
+        pathname: '/search',
+        search: `?user=${searchTerm}`
+    });
+  }
+
+  const handleSearchSubmitWithEnter = (e) => {
+    if (e.keyCode == 13) {
+        handleSearchSubmit();
+    }
+  }
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
@@ -38,6 +55,19 @@ export default function Navbar() {
                         <img src={logo} className={styles['logo-image']} alt='logo' />
                     </Link>
                     <nav className={styles.navbar}>
+                        <div className={styles['search-component']}>
+                            <label className={styles['search-label']}>
+                                <input className={styles.searchbar}
+                                    type="text"
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    onKeyUp={handleSearchSubmitWithEnter}
+                                    value={searchTerm}
+                                />
+                                <div className={styles['search-icon']}>
+                                    <FaSearch onClick={handleSearchSubmit}/>
+                                </div>
+                            </label>
+                        </div>
                             {user && 
                                 <Link to="/getreferral" className={`${styles['nav-link']} ${styles['desktop-link']}`}>
                                     Get a Referral

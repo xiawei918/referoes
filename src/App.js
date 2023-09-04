@@ -7,11 +7,12 @@ import Signup from './pages/signup/Signup';
 import Navbar from './components/Navbar';
 import ForgotPassword from './pages/login/ForgotPassword';
 import Profile from './pages/profile/Profile';
-import ApplicationForm from './pages/GetReferral/ApplicationForm';
+import ApplicationForm from './pages/getReferral/ApplicationForm';
 import Application from './pages/application/Application';
 import GiveReferral from './pages/giveReferral/GiveReferral';
 import CompanyReferrers from './pages/company/CompanyReferrers';
 import CompanyApplicants from './pages/company/CompanyApplicants';
+import SearchResult from './pages/searchResult/searchResult';
 
 function App() {
   const { authIsReady, user } = useAuthContext();
@@ -86,6 +87,11 @@ function App() {
                 element={
                   <CompanyReferrers/>
                 }/>
+              <Route 
+                path="/search" 
+                element={
+                  <SearchResult/>
+              }/>
               <Route 
               path="/companyapplicants/:company" 
               element={
