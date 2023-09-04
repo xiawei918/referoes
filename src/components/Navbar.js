@@ -40,10 +40,8 @@ export default function Navbar() {
   }
 
   useEffect(() => {
-    setSearchTerm('');
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
-        setSearchTerm('');
         document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);

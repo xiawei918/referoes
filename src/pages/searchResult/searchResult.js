@@ -1,8 +1,6 @@
-import { useSearchParams, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useSearchCollection } from '../../hooks/useSearchCollection';
-import { Link } from 'react-router-dom';
 import UserList from '../../components/UserList';
-import default_avatar from '../../assets/anonymous.png';
 
 // styles
 import styles from './searchResult.module.css';
@@ -15,11 +13,12 @@ export default function SearchResult() {
 
     const { documents: searchResultList, error } = useSearchCollection(
         'users', 
-        {'displayNameUpper': userTerm.toUpperCase()}, 
-        ['company', '==', userTerm.toUpperCase()],
+        {'displayNameUpper': userTerm?.toUpperCase()}, 
+        ['company', '==', userTerm?.toUpperCase()],
         []
         );
-  return (
+
+    return (
     <div className={styles['company-users']}>
       {searchResultList && <UserList userList={searchResultList} error={error}/>}
     </div>
