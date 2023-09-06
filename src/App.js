@@ -13,6 +13,8 @@ import GiveReferral from './pages/giveReferral/GiveReferral';
 import CompanyReferrers from './pages/company/CompanyReferrers';
 import CompanyApplicants from './pages/company/CompanyApplicants';
 import SearchResult from './pages/searchResult/searchResult';
+import MyApplications from './pages/myApplications/MyApplications';
+import MyReferrals from './pages/myReferrals/MyReferrals';
 
 function App() {
   const { authIsReady, user } = useAuthContext();
@@ -98,6 +100,22 @@ function App() {
                 <>
                   {!user && <Navigate to="/login" />}
                   {user && <CompanyApplicants />}
+                </>
+              }/>
+              <Route 
+              path="/myapplications" 
+              element={
+                <>
+                  {!user && <Navigate to="/login" />}
+                  {user && <MyApplications />}
+                </>
+              }/>
+              <Route 
+              path="/myreferrals" 
+              element={
+                <>
+                  {!user && <Navigate to="/login" />}
+                  {user && <MyReferrals />}
                 </>
               }/>
           </Routes>

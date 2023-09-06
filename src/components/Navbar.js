@@ -98,6 +98,16 @@ export default function Navbar() {
                                                 Give a Referral
                                             </Link>
                                         }
+                                        {user && 
+                                            <Link to="/myapplications" className={`${styles['nav-link']} ${styles['desktop-link']}`}>
+                                                My Applications
+                                            </Link>
+                                        }
+                                        {user && 
+                                            <Link to="/myreferrals" className={`${styles['nav-link']} ${styles['desktop-link']}`}>
+                                                My Referrals
+                                            </Link>
+                                        }
                                         {!user && 
                                             <Link to="/login" className={styles['nav-link']}>
                                                 Log In
@@ -106,8 +116,8 @@ export default function Navbar() {
                                             <Link to="/signup" className={styles['nav-link']}>
                                                 Sign Up
                                             </Link>}
-                                    {user && <Link to={`/profiles/${user.uid}`}>Profile</Link>}
-                                    {user && <a href='/' onClick={logout}>Logout</a>}
+                                        {user && <Link to={`/profiles/${user.uid}`}>Profile</Link>}
+                                        {user && <a href='/' onClick={logout}>Logout</a>}
                                     </div>
                                 )}
                             </div>

@@ -1,0 +1,40 @@
+.applications {
+    /* text-align: center; */
+    max-width: 90%;
+    margin-left: 10%;
+    margin: auto auto;
+}
+.applications li {
+    display: flex;
+    align-items: left;
+    overflow: hidden;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-right: 20px;
+    justify-content: space-between;
+}
+.applications p {
+    margin: 5px;
+}
+.applications .title {
+    color: black;
+    font-size: 1.2em;
+    cursor: pointer;
+    text-align: left;
+}
+.applications .title:hover {
+    text-decoration: underline;
+}
+.applications .createdat {
+    margin-left: auto;
+    margin-right: 10px;
+    color: #777;
+    font-size: 1.2em;
+}
+@media all and (max-width:750px) {
+    .applications li {
+        display: block;
+    }
+  }
