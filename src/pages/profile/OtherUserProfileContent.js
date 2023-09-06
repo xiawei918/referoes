@@ -14,8 +14,13 @@ export default function OtherUserProfileContent({ profileUser }) {
                 <li>name: {profileUser?.displayName}</li>
                 <li>company: {profileUser?.company}</li>
                 <li>bio: {profileUser?.bio}</li>
+                <li>Linkedin: <a href={profileUser?.linkedinLink}>{profileUser?.linkedinLink && 'LINK'}</a></li>
+                <li>Github: <a href={profileUser?.githubLink}>{profileUser?.githubLink && 'LINK'}</a></li>
+                <li>Personal Website: <a href={profileUser?.personalWebsiteLink}>{profileUser?.personalWebsiteLink && 'LINK'}</a></li>
             </ul>
-            {profileUser && <Link to={`/getreferral/${profileUser.id}`}><button className='btn'>Request Referral</button></Link>}
+            <div className={styles['edit-profile-button']}>
+                {profileUser && <Link to={`/getreferral/${profileUser.id}`}><button className='btn'>Request Referral</button></Link>}
+            </div>
         </div>
     )
 }

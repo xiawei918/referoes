@@ -78,7 +78,9 @@ export default function Profile() {
     const handleProfileSubmit = (e) => {
         e.preventDefault();
         try {
-            updateUserProfile({ displayName, email, thumbnail, bio, company: company.toUpperCase(), resume });
+            updateUserProfile({ displayName, email, thumbnail, bio, 
+                company: company.toUpperCase(), resume, linkedinLink, 
+                githubLink, personalWebsiteLink });
         }
         catch (err) {
             navigate('/login')
@@ -92,6 +94,9 @@ export default function Profile() {
             setEmail(profileUser.email);
             setCompany(profileUser.company);
             setBio(profileUser.bio);
+            setLinkedinLink(profileUser.linkedinLink);
+            setGithubLink(profileUser.githubLink);
+            setPersonalWebsiteLink(profileUser.personalWebsiteLink);
         }
     }, [isEditingProfile, profileUser]);
 
