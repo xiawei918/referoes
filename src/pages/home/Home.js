@@ -5,12 +5,13 @@ import heroImage from '../../assets/refer_hero.png';
 import formImage from '../../assets/fill_out_form.png';
 import { useCollection } from '../../hooks/useCollection';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { Link } from 'react-router-dom';
-import { setDoc, doc } from "firebase/firestore"
+import { Link, useNavigate } from 'react-router-dom';
+import { setDoc, doc, getDoc } from "firebase/firestore"
 import { projectFirestore } from '../../firebase/config';
 
 export default function Home() {
     const { user, dispatch } = useAuthContext();
+    const navigate = useNavigate();
     const { documents: companies, getCompaniesError } = useCollection(
         'companies', 
         [],
@@ -25,7 +26,7 @@ export default function Home() {
                     displayName: user.displayName, email: user.email, 
                     photoURL: user.photoURL, emailVerified: user.emailVerified, 
                     phoneNumber: user.phoneNumber
-                });
+                }, {merge: true});
             }
             catch (err) {
                 console.log(err.message);
@@ -33,12 +34,13 @@ export default function Home() {
         }
         const auth = getAuth();
         
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-        if (user) {
-            storeUser(user);
-            dispatch({ type: 'AUTH_IS_READY', payload: user });
-        }
-        return unsubscribe;
+        const unsubscribe = onAuthStateChanged(auth, async(user) => {
+            if (user) {
+                await storeUser(user);
+                dispatch({ type: 'AUTH_IS_READY', payload: user });
+                console.log(user.uid, user.providerData.uid)
+            }
+            return unsubscribe;
         });
     }, [dispatch]);
     

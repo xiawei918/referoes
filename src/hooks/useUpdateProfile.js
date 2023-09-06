@@ -16,7 +16,7 @@ export const useUpdateProfile = () => {
         setError(null);
         setisPending(true);
         let newProfile = {};
-        if (displayName !== auth.currentUser.displayName) {
+        if (displayName && displayName !== auth.currentUser.displayName) {
             newProfile = { displayName };
         }
         // upload user thumbnail
@@ -64,7 +64,7 @@ export const useUpdateProfile = () => {
                     batch.update(currentCompanyRef, {...currentCompanyData, memberCount: currentCompanyData?.memberCount - 1});
                 }
             }
-            
+            console.log(userDoc, auth.currentUser.uid)
             batch.update(doc(projectFirestore, 'users', auth.currentUser.uid), userDoc);
             await batch.commit();
             if (email !== auth.currentUser.email) {

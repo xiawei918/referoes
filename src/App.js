@@ -15,6 +15,7 @@ import CompanyApplicants from './pages/company/CompanyApplicants';
 import SearchResult from './pages/searchResult/searchResult';
 import MyApplications from './pages/myApplications/MyApplications';
 import MyReferrals from './pages/myReferrals/MyReferrals';
+import LandingPage from './pages/landing/Landing';
 
 function App() {
   const { authIsReady, user } = useAuthContext();
@@ -116,6 +117,14 @@ function App() {
                 <>
                   {!user && <Navigate to="/login" />}
                   {user && <MyReferrals />}
+                </>
+              }/>
+              <Route 
+              path="/landingpage" 
+              element={
+                <>
+                  {!user && <Navigate to="/login" />}
+                  {user && <LandingPage />}
                 </>
               }/>
           </Routes>

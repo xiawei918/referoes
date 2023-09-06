@@ -15,9 +15,9 @@ export default function Profile() {
     const [email, setEmail] = useState('');
     const [displayName, setDisplayName] = useState('');
     const [thumbnail, setThumbnail] = useState(null);
-    const [thumbnailError, setThumbnailError] = useState(null);
+    const [thumbnailError, setThumbnailError] = useState('');
     const [resume, setResume] = useState(null);
-    const [resumeError, setResumeError] = useState(null);
+    const [resumeError, setResumeError] = useState('');
     const [bio, setBio] = useState('');
     const [company, setCompany] = useState('');
     const [linkedinLink, setLinkedinLink] = useState('');
@@ -92,11 +92,11 @@ export default function Profile() {
         if (isEditingProfile) {
             setDisplayName(profileUser.displayName);
             setEmail(profileUser.email);
-            setCompany(profileUser.company);
-            setBio(profileUser.bio);
-            setLinkedinLink(profileUser.linkedinLink);
-            setGithubLink(profileUser.githubLink);
-            setPersonalWebsiteLink(profileUser.personalWebsiteLink);
+            setCompany(profileUser.company ?? '');
+            setBio(profileUser.bio ?? '');
+            setLinkedinLink(profileUser.linkedinLink ?? '');
+            setGithubLink(profileUser.githubLink ?? '');
+            setPersonalWebsiteLink(profileUser.personalWebsiteLink ?? '');
         }
     }, [isEditingProfile, profileUser]);
 

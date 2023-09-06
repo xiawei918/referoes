@@ -1,0 +1,32 @@
+.landing-form {
+    max-width: 420px;
+    margin: 60px auto;
+    padding: 20px;
+}
+.landing-form label {
+    display: block;
+    margin: 25px 15px 25px 0px;
+}
+.landing-form span {
+    display: block;
+    margin-bottom: 6px;
+}
+.landing-form input {
+    padding: 8px 6px;
+    font-size: 1em;
+    color: #777;
+    width: 100%;
+}
+.landing-form p {
+    color: red;
+}
+.landing-form textarea {
+    width: 100%;
+    height: auto;
+    min-height: 75px;
+}
+.container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}

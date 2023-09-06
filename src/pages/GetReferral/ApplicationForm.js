@@ -112,7 +112,7 @@ export default function ApplicationForm() {
             setLinkedinLink('');
             setGithubLink('');
             setPersonalWebsiteLink('');
-            navigate('/givereferral')
+            navigate('/givereferral');
         }
     }, [response.success, navigate])
 
@@ -208,7 +208,7 @@ export default function ApplicationForm() {
                         value={personalWebsiteLink}
                     />
                 </label>
-                {currentUser &&
+                {currentUser && currentUser.pdfUrl &&
                 <label className={styles['on-file-resume-label']}>
                     <span className={styles['on-file-resume-span']}>Use on file </span>
                     <a href={currentUser.pdfUrl}>resume</a>
@@ -218,19 +218,22 @@ export default function ApplicationForm() {
                         checked={useOnFileResume}
                         onChange={() => setUseOnFileResume(!useOnFileResume)}
                     />
-                    {currentUserError && <div className="error">{currentUserError}</div>}
                 </label>}
-                { !useOnFileResume &&
+                {currentUser && !currentUser.pdfUrl &&
+                <p>No resume on file.</p>
+                }
+                { (!useOnFileResume || !currentUser.pdfUrl) &&
                 <label>
-                    <span>resume:</span>
+                    <span>please upload a resume:</span>
                     <input 
                         required
                         type="file"
                         accept="application/pdf,application/msword"
                         onChange={handleResumeChange}
                     />
-                    {resumeError && <div className="error">{resumeError}</div>}
                 </label>}
+                {resumeError && <div className="error">{resumeError}</div>}
+                {currentUserError && <div className="error">{currentUserError}</div>}
                 { !isPending && <button className='btn'>Submit</button>}
                 { isPending && <button className='btn' disabled>loading</button>}
                 { error && <p>{error}</p>}
