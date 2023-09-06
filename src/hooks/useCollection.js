@@ -12,7 +12,7 @@ export const useCollection = (collectionName, _query, _orderBy, _limit=null) => 
     // if we don't use useRef we will have an infinite loop;
     // because the qeury array will be reconsutrcted every
     // time the dom is mounted
-    const queryRef = useMemo(() => {return _query},[]);;
+    const queryRef = useRef(_query).current;;
     const orderByRef = useRef(_orderBy).current;
     const limitRef = useRef(_limit).current;
 

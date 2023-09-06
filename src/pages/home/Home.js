@@ -5,13 +5,12 @@ import heroImage from '../../assets/refer_hero.png';
 import formImage from '../../assets/fill_out_form.png';
 import { useCollection } from '../../hooks/useCollection';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { Link, useNavigate } from 'react-router-dom';
-import { setDoc, doc, getDoc } from "firebase/firestore"
+import { Link } from 'react-router-dom';
+import { setDoc, doc } from "firebase/firestore"
 import { projectFirestore } from '../../firebase/config';
 
 export default function Home() {
     const { user, dispatch } = useAuthContext();
-    const navigate = useNavigate();
     const { documents: companies, getCompaniesError } = useCollection(
         'companies', 
         [],
