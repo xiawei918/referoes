@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useDocument } from '../../hooks/useDocument';
 import { useUpdateDocument } from '../../hooks/useUpdateDocument';
+import { Link } from 'react-router-dom';
 
 // styles
 import styles from './Application.module.css';
@@ -40,7 +41,7 @@ export default function Application() {
                 {application.linkedinLink && <li>Linkedin: <a href={application.linkedinLink}>Linkedin</a></li>}
                 {application.githubLink && <li>Github: <a href={application.githubLink}>Github</a></li>}
                 {application.personalWebsiteLink && <li>Personal Website: <a href={application.personalWebsiteLink}>Personal Website</a></li>}
-                <li>Referrer: {application.referrerName ?? 'waiting for a hero...'}</li>
+                <li>Referrer: <Link to={`/profiles/${application.referrerID}`}>{application.referrerName ?? 'waiting for a hero...'}</Link></li>
                 <li>Status: {application.status}</li>
             </ul>
           </div>
