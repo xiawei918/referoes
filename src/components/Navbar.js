@@ -116,8 +116,8 @@ export default function Navbar() {
                                             <Link to="/signup" className={styles['nav-link']}>
                                                 Sign Up
                                             </Link>}
-                                        {user && <Link to={`/profiles/${user.uid}`}>Profile</Link>}
-                                        {user && <a href='/' onClick={logout}>Logout</a>}
+                                        {user && <Link to={`/profiles/${user.uid}`} className={`${styles['nav-link']}`}>Profile</Link>}
+                                        {user && <a href='/' onClick={logout} className={`${styles['nav-link']}`}>Logout</a>}
                                     </div>
                                 )}
                             </div>

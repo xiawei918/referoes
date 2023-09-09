@@ -208,7 +208,7 @@ export default function ApplicationForm() {
                         value={personalWebsiteLink}
                     />
                 </label>
-                {currentUser && currentUser.pdfUrl &&
+                {currentUser && (currentUser?.pdfUrl) &&
                 <label className={styles['on-file-resume-label']}>
                     <span className={styles['on-file-resume-span']}>Use on file </span>
                     <a href={currentUser.pdfUrl}>resume</a>
@@ -219,10 +219,10 @@ export default function ApplicationForm() {
                         onChange={() => setUseOnFileResume(!useOnFileResume)}
                     />
                 </label>}
-                {currentUser && !currentUser.pdfUrl &&
+                {currentUser && !(currentUser?.pdfUrl) &&
                 <p>No resume on file.</p>
                 }
-                { (!useOnFileResume || !currentUser.pdfUrl) &&
+                { (!useOnFileResume || !(currentUser?.pdfUrl)) &&
                 <label>
                     <span>please upload a resume:</span>
                     <input 
