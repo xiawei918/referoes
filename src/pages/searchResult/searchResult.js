@@ -11,16 +11,22 @@ export default function SearchResult() {
     const queryParams = new URLSearchParams(queryString);
     const userTerm = queryParams.get('user');
 
-    const { documents: searchResultList, error } = useSearchCollection(
+    const { documents: searchResultList, error, loadMore, loadedAll } = useSearchCollection(
         'users', 
         {'displayNameUpper': userTerm?.toUpperCase()}, 
         ['company', '==', userTerm?.toUpperCase()],
-        []
+        [],
+        [4]
         );
 
     return (
     <div className={styles['company-users']}>
       {searchResultList && <UserList userList={searchResultList} error={error}/>}
+      {searchResultList && !loadedAll && 
+        <div className={styles['load-more']}>
+            <button className='btn' onClick={loadMore}>Load More</button>
+        </div>
+        }
     </div>
   )
 }

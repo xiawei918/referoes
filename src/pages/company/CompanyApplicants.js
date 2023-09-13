@@ -8,7 +8,7 @@ import styles from './CompanyApplicants.module.css';
 
 export default function CompanyApplicants() {
   const { company: companyName } = useParams();
-  const { documents: companycandidates, error } = useCollection(
+  const { documents: companycandidates, error, loadMore, loadedAll } = useCollection(
     'applications', 
     [['company', '==', companyName.toUpperCase()]],
     ["createdAt", 'desc']
@@ -18,6 +18,7 @@ export default function CompanyApplicants() {
     <div className={styles['company-applicants']}>
       {error && <p className="error">{error}</p>}
         {companycandidates && 
+            <div>
             <ul className={styles['applicants-list']}>
                 {companycandidates.map((app) => (
                     <li key={app.id}>
@@ -25,6 +26,8 @@ export default function CompanyApplicants() {
                     </li>
                 ))}
             </ul>
+            {!loadedAll && <button onClick={loadMore} className='btn'>Load More</button>}
+            </div>
         }
     </div>
   )

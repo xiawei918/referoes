@@ -5,7 +5,7 @@ import { auth } from '../../firebase/config';
 import styles from './MyApplications.module.css';
 
 export default function MyApplications() {
-    const { documents: applications, error } = useCollection(
+    const { documents: applications, error, loadMore, loadedAll } = useCollection(
         'applications', 
         [['uid', '==', auth.currentUser.uid]],
         ["createdAt", 'desc']
@@ -20,6 +20,11 @@ export default function MyApplications() {
                 </li>
             ))}
             {error && <p className='error'>{error}</p>}
+            {applications && !loadedAll && 
+                <div className={styles['load-more']}>
+                    <button onClick={loadMore} className='btn'>Load More</button>
+                </div>
+            }
         </ul>
     )
 }

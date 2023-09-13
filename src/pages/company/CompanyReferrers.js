@@ -5,7 +5,7 @@ import UserList from '../../components/UserList';
 
 export default function CompanyReferrers() {
   const { company: companyName } = useParams();
-  const { documents: companyUsers, error } = useCollection(
+  const { documents: companyUsers, error, loadMore, loadedAll } = useCollection(
     'users', 
     [['company', '==', companyName.toUpperCase()]],
     []
@@ -15,6 +15,7 @@ export default function CompanyReferrers() {
     <div>
       {error && <p className="error">{error}</p>}
       {companyUsers && <UserList userList={companyUsers} error={error}/>}
+      {companyUsers && !loadedAll && <button onClick={loadMore} className='btn'>Load More</button>}
     </div>
   )
 }

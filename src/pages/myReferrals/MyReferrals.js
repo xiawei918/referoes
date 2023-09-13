@@ -5,7 +5,7 @@ import { auth } from '../../firebase/config';
 import styles from './MyReferrals.module.css';
 
 export default function MyReferrals() {
-    const { documents: applications, error } = useCollection(
+    const { documents: applications, error, loadMore, loadedAll } = useCollection(
         'applications', 
         [['referrerID', '==', auth.currentUser.uid]],
         ["createdAt", 'desc']
@@ -20,6 +20,7 @@ export default function MyReferrals() {
                 </li>
             ))}
             {error && <p className='error'>{error}</p>}
+            {applications && !loadedAll && <button onClick={loadMore} className='btn'>Load More</button>}
         </ul>
     )
 }

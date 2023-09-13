@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { projectFirestore } from "../firebase/config";
-import { collection, query, where, orderBy, limit, onSnapshot, or, and } from "firebase/firestore"
+import { collection, query, where, orderBy, limit, getDocs, or, and, startAfter } from "firebase/firestore"
 
 
 export const useSearchCollection = (collectionName, _query_pairs, _where, _orderBy, _limit=null) => {
     const [documents, setDocuments] = useState(null);
+    const [lastDoc, setLastDoc] = useState(null);
     const [error, setError] = useState(null);
+    const [loadedAll, setloadedAll] = useState(false);
     if (!_limit) {
         _limit = [];
     }
@@ -27,7 +29,7 @@ export const useSearchCollection = (collectionName, _query_pairs, _where, _order
         return whereQuery;
     }
 
-    useEffect(() => {
+    const getInitialResults = async () => {
         let collectionRef = collection(projectFirestore, collectionName);
         let args = [];
         let q = collectionRef;
@@ -54,22 +56,72 @@ export const useSearchCollection = (collectionName, _query_pairs, _where, _order
         if (Object.keys(_query_pairs).length > 0 | _where.length > 0 | orderByRef.length > 0 | limitRef.length > 0) {
             q = query(collectionRef, ...args);
         }
-        const unsubscribe = onSnapshot(q, (snapshot) => {
-            let results = [];
-            snapshot.docs.forEach(doc => {
-                results.push({ ...doc.data(), id: doc.id })
-            })
 
-            setDocuments(results);
+        try {
+            const documentSnapshots = await getDocs(q);
+            const lastVisible = documentSnapshots.docs[documentSnapshots.docs.length - 1];
+            const docs = documentSnapshots.docs.map(doc => ({ ...doc.data(), id: doc.id }))
+            
+            setLastDoc(lastVisible);
+            setDocuments(docs);
             setError(null);
-        }, (error) => {
-            console.log(error);
+            if (docs.length < limitRef[0]) {
+                setloadedAll(true);
+            }
+        }
+        catch (error) {
             setError('could not ferch the data')
-        });
+        };
+    }
 
-        return () => unsubscribe();
+    const loadMore = async () => {
+        if (!lastDoc) return;
+        let collectionRef = collection(projectFirestore, collectionName);
+        let args = [];
+        let q = collectionRef;
 
+        if (Object.keys(_query_pairs).length > 0) {
+            if (_where.length > 0) {
+                args = [...args, or(where(..._where), and(...constructQuery(_query_pairs)))];
+            }
+            else {
+                args = [...args, ...constructQuery(_query_pairs)];
+            }
+        }
+        else {
+            if (_where.length > 0) {
+                args = [...args, where(..._where)];
+            }
+        }
+        if (orderByRef.length > 0) {
+            args = [...args, orderBy(...orderByRef)];
+        }
+        if (limitRef.length > 0) {
+            args = [...args, limit(...limitRef)];
+        }
+        if (Object.keys(_query_pairs).length > 0 | _where.length > 0 | orderByRef.length > 0 | limitRef.length > 0) {
+            q = query(collectionRef, ...args, startAfter(lastDoc));
+        }
+
+        try {
+            const documentSnapshots = await getDocs(q);
+            const lastVisible = documentSnapshots.docs[documentSnapshots.docs.length - 1];
+            const moreDocs = documentSnapshots.docs.map(doc => ({ ...doc.data(), id: doc.id }))
+            setLastDoc(lastVisible);
+            setDocuments(prev => [...prev, ...moreDocs]);
+            setError(null);
+            if (moreDocs.length < limitRef[0]) {
+                setloadedAll(true);
+            }
+        }
+        catch (error) {
+            setError('could not ferch the data')
+        };
+    }
+
+    useEffect(() => {
+        getInitialResults();
     }, [collectionName, JSON.stringify(_query_pairs), JSON.stringify(_where), orderByRef, limitRef]);
 
-    return { documents, error};
+    return { documents, error, loadMore, loadedAll};
 }
