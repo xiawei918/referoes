@@ -21,6 +21,7 @@ function App() {
   const { authIsReady, user } = useAuthContext();
 
   return (
+    <main className='relative'>
     <div className="App">
       {authIsReady && (
         <BrowserRouter>
@@ -131,6 +132,7 @@ function App() {
         </BrowserRouter>
       )}
     </div>
+    </main>
   );
 }
 
